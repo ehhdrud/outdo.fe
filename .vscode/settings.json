@@ -1,0 +1,30 @@
+{
+	"workbench.iconTheme": "material-icon-theme",
+	"prettier.printWidth": 120,
+	"prettier.useTabs": true,
+	"prettier.singleQuote": true,
+	"powermode.explosions.customExplosions": [],
+	"powermode.explosions.explosionOrder": "random",
+	"powermode.presets": "fireworks",
+	"powermode.combo.location": "editor",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"vscode-pets.petSize": "medium",
+	"vscode-pets.throwBallWithMouse": true,
+	"vscode-pets.petType": "turtle",
+	"git.confirmSync": false,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.fixAll.stylelint": "explicit"
+	},
+	"editor.formatOnSave": true,
+	"eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+	"git.openRepositoryInParentFolders": "never",
+	"git.ignoreRebaseWarning": true,
+	"gitlens.defaultDateShortFormat": "",
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"explorer.confirmDelete": false,
+	"stylelint.validate": ["css", "scss", "postcss", "typescript", "typescriptreact"],
+	"stylelint.customSyntax": "postcss-styled-syntax",
+	"files.insertFinalNewline": true,
+	"cSpell.words": ["ebitda", "findpw"]
+}

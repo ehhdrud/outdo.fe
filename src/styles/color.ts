@@ -1,0 +1,26 @@
+export type ColorsTypes = typeof colors;
+
+export const colors = {
+	primary50: '#E6F6FF',
+	primary100: '#BAE3FF',
+	primary200: '#0A46A3',
+	primary300: '#47A3F3',
+	primary400: '#01337D',
+	secondary50: '#F2FCFB',
+	secondary100: '#C7F7F4',
+	secondary200: '#96F2EB',
+	secondary300: '#63E6D9',
+	secondary400: '#38D9C6',
+	tertiary50: '#F2FCFB',
+	tertiary100: '#C7F7F4',
+	tertiary200: '#96F2EB',
+	tertiary300: '#63E6D9',
+	tertiary400: '#38D9C6',
+	red600: '#DC2626',
+	gray: '#F8F9FA',
+	gray100: '#E9ECEF',
+	gray200: '#ADB5BD',
+	grayMid: '#495057',
+	grayLight: '#868E96',
+	grayDarker: '#212529',
+};
