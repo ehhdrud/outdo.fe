@@ -85,9 +85,6 @@ mainApi.interceptors.response.use(
 			}
 		}
 
-		console.log(`error : `, error);
-		console.error(`${error.config?.url} \n`, error);
-
 		if (error.code === 'ERR_NETWORK') {
 			toastStore.openToast({
 				icon: 'alert',

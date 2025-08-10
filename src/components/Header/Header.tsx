@@ -48,17 +48,10 @@ const Header = () => {
 							</Styled.MenuContainer>
 						)}
 
-						{!isLogin() ? (
+						{!isLogin() && (
 							<button className="c_button primary-fill small" onClick={() => navigate('/auth/login')}>
 								로그인
 							</button>
-						) : (
-							<Styled.MenuButtonBox>
-								<button className="c_button mark-black" onClick={() => navigate('/mypage')}>
-									<UserIcon />
-									<span>MY</span>
-								</button>
-							</Styled.MenuButtonBox>
 						)}
 					</Styled.Nav>
 				</div>

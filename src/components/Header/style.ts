@@ -11,19 +11,21 @@ export const HeaderContainer = styled.header<HeaderContainerProps>`
 	top: 0;
 	right: 0;
 	left: 0;
-	background-color: #ffffff;
+	background-color: rgba(22, 27, 34, 0.95);
+	backdrop-filter: blur(12px);
 	height: ${HEADER_HEIGHT}px;
 	z-index: 100;
-	border-bottom: 1px solid #dee2e6;
+	border-bottom: 1px solid #30363d;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 `;
 export const Nav = styled.nav`
 	display: flex;
 	justify-content: space-between;
-	max-width: 60rem;
+	max-width: 600px;
 	margin: 0 auto;
 	height: ${HEADER_HEIGHT}px;
 	align-items: center;
-	max-width: 60rem;
+	padding: 0 24px;
 `;
 export const MenuContainer = styled.div`
 	width: 100%;
@@ -43,15 +45,16 @@ export const MenuContainer = styled.div`
 			padding: 2rem;
 			border: none;
 			background-color: transparent;
-			font-family: 'Montserrat', sans-serif;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 			font-size: ${(props) => props.theme.fontSize.sizeLgPx};
 			font-weight: 500;
-			color: ${(props) => props.theme.colors.grayMid};
+			color: ${(props) => props.theme.colors.text.secondary};
 			cursor: pointer;
+			transition: color 0.2s ease;
 
 			&.active,
 			&:hover {
-				color: ${(props) => props.theme.colors.primary200};
+				color: ${(props) => props.theme.colors.accent.primary};
 			}
 		}
 	}

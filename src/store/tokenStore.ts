@@ -15,8 +15,7 @@ const getInitialTokens = (): { accessToken: string | null; refreshToken: string 
 	try {
 		const tokenData = localStorage.getItem('token');
 		return tokenData ? JSON.parse(tokenData) : { accessToken: null, refreshToken: null };
-	} catch (error) {
-		console.error('Failed to parse token from localStorage:', error);
+	} catch {
 		return { accessToken: null, refreshToken: null };
 	}
 };

@@ -16,8 +16,7 @@ const getInitialValues = (): { pk: string } => {
 			};
 		}
 		return { pk: '' };
-	} catch (error) {
-		console.error('Failed to parse auth data from localStorage:', error);
+	} catch {
 		return { pk: '' };
 	}
 };
