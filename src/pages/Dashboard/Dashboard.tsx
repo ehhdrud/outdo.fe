@@ -5,7 +5,7 @@ const DashBoard = () => {
 
 	return (
 		<S.DashBoardWrapper>
-			<S.DashBoardLayout>Dashboard</S.DashBoardLayout>
+			<S.DashBoardLayout></S.DashBoardLayout>
 		</S.DashBoardWrapper>
 	);
 };

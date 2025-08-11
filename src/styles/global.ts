@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { HEADER_HEIGHT } from '@/constants/layout.constant.ts';
+import { BOTTOM_NAV_HEIGHT, HEADER_HEIGHT } from '@/constants/layout.constant.ts';
 
 /**
  * Global 적용 스타일
@@ -8,6 +8,7 @@ import { HEADER_HEIGHT } from '@/constants/layout.constant.ts';
 const global = css`
 	html {
 		font-size: 10px;
+		overflow-x: hidden;
 		overflow-y: auto;
 	}
 
@@ -16,6 +17,9 @@ const global = css`
 		font-size: 16px;
 		background-color: #0d1117;
 		color: #f0f6fc;
+		margin: 0;
+		padding: 0;
+		overflow-x: hidden;
 
 		/* Sophisticated background gradient */
 		background: linear-gradient(135deg, #0d1117 0%, #1a1e26 15%, #0d1117 40%, #12161f 65%, #0d1117 100%);
@@ -38,34 +42,7 @@ const global = css`
 		}
 	}
 
-	main {
-		flex: 1;
-		width: 100%;
-		max-width: 600px;
-		margin: 0 auto;
-		background-color: rgba(22, 27, 34, 0.95);
-		backdrop-filter: blur(10px);
-		border: 1px solid #30363d;
-		box-shadow:
-			0 16px 32px rgba(0, 0, 0, 0.4),
-			0 4px 16px rgba(0, 0, 0, 0.2),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05);
-		height: calc(100dvh - ${HEADER_HEIGHT}px);
-		position: relative;
-
-		/* Inner glow effect */
-		&::before {
-			content: '';
-			position: absolute;
-			top: -1px;
-			left: -1px;
-			right: -1px;
-			bottom: -1px;
-			background: linear-gradient(45deg, rgba(47, 129, 247, 0.1) 0%, transparent 25%, transparent 75%, rgba(56, 139, 253, 0.1) 100%);
-			border-radius: 12px;
-			z-index: -1;
-		}
-	}
+	/* main 스타일 제거 - MainLayout으로 대체됨 */
 
 	input,
 	textarea {

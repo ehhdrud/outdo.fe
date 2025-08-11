@@ -7,25 +7,39 @@ interface HeaderContainerProps {
 }
 
 export const HeaderContainer = styled.header<HeaderContainerProps>`
-	position: ${(props) => (props.isOpen ? 'fixed' : 'sticky')};
+	position: fixed;
 	top: 0;
-	right: 0;
-	left: 0;
-	background-color: rgba(22, 27, 34, 0.95);
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	max-width: 600px;
+	height: auto;
+	background-color: rgba(22, 27, 34, 0.98);
 	backdrop-filter: blur(12px);
-	height: ${HEADER_HEIGHT}px;
 	z-index: 100;
-	border-bottom: 1px solid #30363d;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+	border: none;
 `;
 export const Nav = styled.nav`
 	display: flex;
-	justify-content: space-between;
-	max-width: 600px;
-	margin: 0 auto;
-	height: ${HEADER_HEIGHT}px;
+	justify-content: flex-start;
+	width: 100%;
+	height: auto;
 	align-items: center;
-	padding: 0 24px;
+	padding: 16px;
+`;
+
+export const LogoButton = styled.button`
+	display: flex;
+	align-items: center;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+
+	img {
+		width: 130px;
+		height: 30px;
+	}
 `;
 export const MenuContainer = styled.div`
 	width: 100%;
