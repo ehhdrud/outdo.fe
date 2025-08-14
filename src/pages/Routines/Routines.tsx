@@ -3,11 +3,7 @@ import * as S from './Routines.style.ts';
 const Routines = () => {
 	const example = () => {};
 
-	return (
-		<S.RoutinesWrapper>
-			<S.RoutinesLayout></S.RoutinesLayout>
-		</S.RoutinesWrapper>
-	);
+	return <S.RoutinesWrapper>Routines Content</S.RoutinesWrapper>;
 };
 
 export default Routines;

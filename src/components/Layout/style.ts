@@ -23,9 +23,11 @@ export const LayoutWrapper = styled.div`
 	}
 `;
 
-export const MainLayout = styled.div`
+export const MainLayout = styled.main`
 	display: flex;
 	flex-direction: column;
+	justify-content: start;
+	align-items: center;
 	width: 100%;
 	margin-top: ${HEADER_HEIGHT}px;
 	margin-bottom: ${BOTTOM_NAV_HEIGHT}px;
@@ -35,4 +37,5 @@ export const MainLayout = styled.div`
 	overflow-x: hidden;
 	overflow-y: auto;
 	box-sizing: border-box;
+	padding: 4rem 2rem;
 `;

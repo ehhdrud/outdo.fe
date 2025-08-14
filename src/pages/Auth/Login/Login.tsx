@@ -3,11 +3,7 @@ import * as S from './Login.style.ts';
 const Login = () => {
 	const example = () => {};
 
-	return (
-		<S.LoginWrapper>
-			<S.LoginLayout></S.LoginLayout>
-		</S.LoginWrapper>
-	);
+	return <S.LoginWrapper>Login Content</S.LoginWrapper>;
 };
 
 export default Login;
