@@ -13,13 +13,26 @@ const global = css`
 	}
 
 	body {
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+		font-family:
+			'Inter',
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			'Roboto',
+			'Helvetica Neue',
+			Arial,
+			sans-serif;
 		font-size: 16px;
+		font-weight: 400;
+		line-height: 1.5;
+		letter-spacing: -0.01em;
 		background-color: #0d1117;
 		color: #f0f6fc;
 		margin: 0;
 		padding: 0;
 		overflow-x: hidden;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 
 		/* Sophisticated background gradient */
 		background: linear-gradient(135deg, #0d1117 0%, #1a1e26 15%, #0d1117 40%, #12161f 65%, #0d1117 100%);

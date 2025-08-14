@@ -37,7 +37,7 @@ export const LogoButton = styled.button`
 	padding: 0;
 
 	img {
-		width: 130px;
+		width: 100px;
 		height: 30px;
 	}
 `;

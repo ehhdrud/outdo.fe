@@ -12,8 +12,8 @@ interface NavItem {
 const navItems: NavItem[] = [
 	{
 		id: 'dashboard',
-		label: '대시보드',
-		path: '/dashboard',
+		label: 'Dashboard',
+		path: '/',
 		icon: (
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
@@ -22,8 +22,8 @@ const navItems: NavItem[] = [
 	},
 	{
 		id: 'routine',
-		label: '루틴',
-		path: '/routine',
+		label: 'Routines',
+		path: '/routines',
 		icon: (
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
@@ -32,7 +32,7 @@ const navItems: NavItem[] = [
 	},
 	{
 		id: 'profile',
-		label: '프로필',
+		label: 'Profile',
 		path: '/profile',
 		icon: (
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -54,7 +54,7 @@ const BottomNavigation = () => {
 		<S.BottomNavContainer>
 			<S.NavList>
 				{navItems.map((item) => {
-					const isActive = location.pathname === item.path || (item.path === '/routine' && location.pathname.startsWith('/routine'));
+					const isActive = location.pathname === item.path || (item.path === '/routines' && location.pathname.startsWith('/routines'));
 
 					return (
 						<S.NavItem key={item.id}>

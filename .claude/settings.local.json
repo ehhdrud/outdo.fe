@@ -6,7 +6,17 @@
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
       "Bash(npm i:*)",
-      "Bash(sudo npm i -g @anthropic-ai/claude-code)"
+      "Bash(sudo npm i -g @anthropic-ai/claude-code)",
+      "Bash(claude doctor)",
+      "Bash(npm uninstall:*)",
+      "Bash(sudo rm:*)",
+      "Bash(claude --version)",
+      "Bash(npm config:*)",
+      "Bash(ls:*)",
+      "Bash(npm cache clean:*)",
+      "Bash(echo $PATH)",
+      "Bash(npx tsc:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

@@ -31,7 +31,7 @@ const Header = () => {
 			<Styled.HeaderContainer id="header" isOpen={isOpen}>
 				<div className="container">
 					<Styled.Nav>
-						<Styled.LogoButton onClick={() => navigate('/dashboard')}>
+						<Styled.LogoButton onClick={() => navigate('/')}>
 							<img src={logoSvg} alt="OUTDO" />
 						</Styled.LogoButton>
 					</Styled.Nav>

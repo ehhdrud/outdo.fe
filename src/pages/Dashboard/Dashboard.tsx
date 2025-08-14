@@ -1,13 +1,13 @@
-import * as S from './style.ts';
+import * as S from './Dashboard.style.ts';
 
-const DashBoard = () => {
+const Dashboard = () => {
 	const example = () => {};
 
 	return (
-		<S.DashBoardWrapper>
-			<S.DashBoardLayout></S.DashBoardLayout>
-		</S.DashBoardWrapper>
+		<S.DashboardWrapper>
+			<S.DashboardLayout></S.DashboardLayout>
+		</S.DashboardWrapper>
 	);
 };
 
-export default DashBoard;
+export default Dashboard;
