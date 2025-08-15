@@ -1,4 +1,4 @@
-// components/common/LoadingSpinner/style.ts
+// 공통 로딩 스피너 스타일
 import styled from '@emotion/styled';
 
 export const Overlay = styled.div`

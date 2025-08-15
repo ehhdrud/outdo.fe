@@ -16,7 +16,10 @@
       "Bash(npm cache clean:*)",
       "Bash(echo $PATH)",
       "Bash(npx tsc:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx prettier:*)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": []
   }

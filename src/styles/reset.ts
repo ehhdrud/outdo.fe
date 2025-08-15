@@ -98,7 +98,7 @@ const reset = css`
 		vertical-align: baseline;
 	}
 
-	/* HTML5 display-role reset for older browsers */
+	/* 구형 브라우저를 위한 HTML5 display-role 초기화 */
 	article,
 	aside,
 	details,

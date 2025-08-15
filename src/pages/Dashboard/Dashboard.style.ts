@@ -1,3 +1,7 @@
 import styled from '@emotion/styled';
 
-export const DashboardWrapper = styled.div``;
+import { colors } from '../../styles/color';
+
+export const DashboardWrapper = styled.div`
+	width: 100%;
+`;

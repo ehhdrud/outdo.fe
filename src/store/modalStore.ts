@@ -29,5 +29,5 @@ export const useModalStore = create<ModalState>((set, get) => ({
 
 		set({ isOpen: false });
 	},
-	closeModal: () => set({ isOpen: false, onConfirm: undefined }), // Clear the callback when closing
+	closeModal: () => set({ isOpen: false, onConfirm: undefined }), // 닫을 때 콜백 초기화
 }));

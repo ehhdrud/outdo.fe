@@ -34,12 +34,12 @@ const global = css`
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 
-		/* Sophisticated background gradient */
+		/* 세련된 배경 그라디에션 */
 		background: linear-gradient(135deg, #0d1117 0%, #1a1e26 15%, #0d1117 40%, #12161f 65%, #0d1117 100%);
 		background-attachment: fixed;
 		min-height: 100vh;
 
-		/* Subtle pattern overlay */
+		/* 은은한 패턴 오버레이 */
 		&::before {
 			content: '';
 			position: fixed;
