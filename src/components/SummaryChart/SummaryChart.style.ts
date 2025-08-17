@@ -81,6 +81,8 @@ export const WeekLabel = styled.div`
 export const GridContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(19, minmax(0, 1fr)); /* 최소 크기 0으로 제한 */
+	grid-template-rows: repeat(7, 1fr); /* 7행 명시적 정의 */
+	grid-auto-flow: column; /* 열 우선 배치 (위에서 아래로, 다음 열로) */
 	gap: 2px;
 	width: calc(100% - 24px); /* 100% - WeekLabels(20px) - gap(4px) */
 	aspect-ratio: 19 / 7; /* 19열 7행 비율 유지 */
@@ -130,23 +132,22 @@ export const DaySquare = styled.div<DaySquareProps>`
 	border: 1px solid ${colors.surface.border};
 
 	&:hover {
-		transform: scale(1.05);
 		border-color: ${colors.accent.hover};
 
 		/* 호버 시 불투명도/밝기 약간 증가 */
 		filter: brightness(1.2);
 	}
 
-	/* 3단계 반응형 숨김 처리 */
-	/* 479px 이하: 133개(19열) 이후 숨김 */
-	&:nth-of-type(n + 134) {
+	/* 3단계 반응형 숨김 처리 - 최신 데이터 우선 표시 */
+	/* 479px 이하: 최신 133개(19열)만 표시, 이전 49개 숨김 */
+	&:nth-of-type(-n + 49) {
 		@media (max-width: 479px) {
 			display: none;
 		}
 	}
 
-	/* 480-539px: 161개(23열) 이후 숨김 */
-	&:nth-of-type(n + 162) {
+	/* 480-539px: 최신 161개(23열)만 표시, 이전 21개 숨김 */
+	&:nth-of-type(-n + 21) {
 		@media (min-width: 480px) and (max-width: 539px) {
 			display: none;
 		}

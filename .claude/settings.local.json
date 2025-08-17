@@ -19,7 +19,8 @@
       "Bash(mv:*)",
       "Bash(npm run lint:*)",
       "Bash(npx prettier:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

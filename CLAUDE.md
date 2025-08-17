@@ -22,9 +22,9 @@ grid-template-columns: repeat(19, minmax(0, 1fr));
 - `minmax(0, 1fr)`: 최소 크기를 0으로 제한하여 컨테이너 크기 절대 초과 방지
 
 ## 적용 위치
-- 19열 (기본): `repeat(19, minmax(0, 1fr))`
-- 23열 (480px+): `repeat(23, minmax(0, 1fr))`
-- 26열 (540px+): `repeat(26, minmax(0, 1fr))`
+- 19열 (~479px): `repeat(19, minmax(0, 1fr))` - 133일 표시
+- 23열 (480-539px): `repeat(23, minmax(0, 1fr))` - 161일 표시  
+- 26열 (540px+): `repeat(26, minmax(0, 1fr))` - 182일 표시
 
 ---
 
