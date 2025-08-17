@@ -111,7 +111,7 @@ export const DaySquare = styled.div<DaySquareProps>`
 	width: 100%;
 	aspect-ratio: 1; /* 정사각형 비율 유지 */
 	border-radius: 2px;
-	cursor: pointer;
+	cursor: ${({ $activity }) => ($activity === 0 ? 'default' : 'pointer')};
 	transition: all 0.2s ease;
 	box-sizing: border-box; /* border를 width에 포함 */
 
@@ -132,10 +132,10 @@ export const DaySquare = styled.div<DaySquareProps>`
 	border: 1px solid ${colors.surface.border};
 
 	&:hover {
-		border-color: ${colors.accent.hover};
-
-		/* 호버 시 불투명도/밝기 약간 증가 */
-		filter: brightness(1.2);
+		/* activity가 0이 아닐 때만 호버 효과 적용 */
+		border-color: ${({ $activity }) => ($activity === 0 ? colors.surface.border : colors.accent.hover)};
+		filter: ${({ $activity }) => ($activity === 0 ? 'none' : 'brightness(1.2)')};
+		transform: ${({ $activity }) => ($activity === 0 ? 'none' : 'scale(1.05)')};
 	}
 
 	/* 3단계 반응형 숨김 처리 - 최신 데이터 우선 표시 */

@@ -5,6 +5,8 @@
 export interface DayActivity {
 	date: string; // YYYY-MM-DD 형식
 	activity: number; // 0: 비활성, 1: 낮은 활동, 2: 높은 활동
+	routine: string | null; // Push, Pull, Legs 중 하나, activity가 0이면 null
+	achievement: string | null; // activity가 2일 때만 존재, +???kg 형태
 }
 
 export const generateMockSummaryData = (customDays?: number): DayActivity[] => {
@@ -14,15 +16,22 @@ export const generateMockSummaryData = (customDays?: number): DayActivity[] => {
 	const dayOfWeek = today.getDay(); // 0=일요일, 1=월요일, ..., 6=토요일
 	const days = customDays ?? 176 + dayOfWeek; // 176~182일 범위
 
+	const routines = ['Push', 'Pull', 'Legs'];
 	const result: DayActivity[] = [];
 
 	for (let i = 0; i < days; i++) {
 		const date = new Date(today);
 		date.setDate(today.getDate() - i);
 
+		const activity = Math.floor(Math.random() * 3); // 0~2 랜덤
+		const routine = activity === 0 ? null : routines[Math.floor(Math.random() * routines.length)];
+		const achievement = activity === 2 ? `+${Math.floor(Math.random() * 50) + 1}kg` : null;
+
 		result.push({
 			date: date.toISOString().split('T')[0], // 'YYYY-MM-DD' 형식
-			activity: Math.floor(Math.random() * 3), // 0~2 랜덤
+			activity,
+			routine,
+			achievement,
 		});
 	}
 

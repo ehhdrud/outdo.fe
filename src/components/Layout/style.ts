@@ -31,7 +31,7 @@ export const MainLayout = styled.main`
 	width: 100%;
 	margin-top: ${HEADER_HEIGHT}px;
 	margin-bottom: ${BOTTOM_NAV_HEIGHT}px;
-	min-height: calc(100dvh - ${HEADER_HEIGHT}px - ${BOTTOM_NAV_HEIGHT}px);
+	height: calc(100dvh - ${HEADER_HEIGHT}px - ${BOTTOM_NAV_HEIGHT}px);
 	background-color: rgba(22, 27, 34, 0.95);
 	backdrop-filter: blur(10px);
 	overflow-x: hidden;
