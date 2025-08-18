@@ -70,3 +70,28 @@ grid-template-columns: repeat(19, minmax(0, 1fr));
 - Implement GitHub-like menu navigation
 - Ensure smooth client-side routing
 - Create corresponding route components for each path
+
+---
+
+# CSS 및 레이아웃 가이드라인
+
+## 반응형 디자인 제약사항
+
+### 최대 너비 제한
+- **전체 앱 최대 너비**: `600px`
+- **컨테이너들은 이 제약 내에서 동작**해야 함
+
+### 미디어 쿼리 사용 원칙
+- **미디어 쿼리는 아주 예외적인 경우에만 사용**
+- 600px 이하에서 모든 레이아웃이 완성되어야 함
+- 불필요한 브레이크포인트 (768px, 1200px 등) **절대 금지**
+
+### 권장 레이아웃 방식
+- **무조건 Flex Column 사용**: `display: flex; flex-direction: column;`
+- Grid 레이아웃 사용 금지
+- 세로 스택 형태로 카드들을 배치
+- 단순하고 일관된 레이아웃 유지
+
+### 예외적 미디어 쿼리 사용 사례
+- SummaryChart처럼 데이터 밀도 조정이 필요한 경우에만
+- 480px, 540px 등 특정 기능에 필요한 경우에만

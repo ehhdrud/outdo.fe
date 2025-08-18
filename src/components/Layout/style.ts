@@ -38,4 +38,27 @@ export const MainLayout = styled.main`
 	overflow-y: auto;
 	box-sizing: border-box;
 	padding: 4rem 2rem;
+
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 3px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.2);
+		border-radius: 3px;
+		transition: background 0.2s ease;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background: rgba(255, 255, 255, 0.3);
+	}
+
+	/* Firefox */
+	scrollbar-width: thin;
+	scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
 `;

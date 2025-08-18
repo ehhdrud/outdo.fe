@@ -53,4 +53,5 @@ export const colors = {
 	grayMid: '#6e7681',
 	grayLight: '#8b949e',
 	grayDarker: '#f0f6fc',
+	white: '#f0f6fc',
 };
