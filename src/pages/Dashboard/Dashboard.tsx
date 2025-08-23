@@ -1,8 +1,8 @@
+import Achievement from '@/components/Achievement/Achievement';
+import LayoutSection from '@/components/common/LayoutSection/LayoutSection';
+import SummaryChart from '@/components/SummaryChart/SummaryChart';
+
 import * as S from './Dashboard.style.ts';
-import Achievement from '../../components/Achievement/Achievement';
-import LayoutSection from '../../components/common/LayoutSection/LayoutSection';
-import SummaryChart from '../../components/SummaryChart/SummaryChart';
-import { mockSummaryData } from '../../data/mockSummaryData';
 
 const Dashboard = () => {
 	const example = () => {};

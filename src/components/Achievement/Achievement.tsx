@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { mockSummaryData } from '@/data/mockSummaryData';
+
 import * as S from './Achievement.style';
-import { mockSummaryData } from '../../data/mockSummaryData';
 
 interface AchievementData {
 	date: string;

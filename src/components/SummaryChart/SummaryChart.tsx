@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { mockActivityLevels, mockSummaryData } from '@/data/mockSummaryData';
+
 import * as S from './SummaryChart.style';
-import { mockActivityLevels, mockSummaryData } from '../../data/mockSummaryData';
 
 interface SummaryChartProps {
 	data?: number[];
@@ -19,7 +20,7 @@ const SummaryChart: React.FC<SummaryChartProps> = ({ data, showDebugInfo = false
 	// 활동 레벨별 개수 계산
 	const activityStats = chartData.reduce(
 		(acc, level) => {
-			acc[level]++;
+			acc[level as keyof typeof acc]++;
 			return acc;
 		},
 		{ 0: 0, 1: 0, 2: 0 }

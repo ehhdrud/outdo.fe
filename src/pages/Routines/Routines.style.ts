@@ -14,11 +14,22 @@ export const RoutineCard = styled.div`
 	padding: 12px;
 	transition: all 0.2s ease;
 	backdrop-filter: blur(8px);
+	cursor: pointer;
+	outline: none;
 
-	&:hover {
+	&:hover,
+	&:focus {
 		background: rgba(255, 255, 255, 0.08);
 		border-color: rgba(255, 255, 255, 0.15);
 		transform: translateY(-1px);
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 2px rgba(47, 129, 247, 0.4);
+	}
+
+	&:active {
+		transform: scale(0.98);
 	}
 `;
 
@@ -47,23 +58,6 @@ export const WorkoutItem = styled.li`
 	align-items: center;
 	padding: 6px 8px;
 	border-radius: 3px;
-	transition: all 0.15s ease;
-	cursor: pointer;
-	outline: none;
-
-	&:hover,
-	&:focus {
-		background: rgba(255, 255, 255, 0.08);
-		transform: translateX(1px);
-	}
-
-	&:focus {
-		box-shadow: 0 0 0 2px rgba(47, 129, 247, 0.4);
-	}
-
-	&:active {
-		transform: scale(0.98);
-	}
 `;
 
 export const WorkoutName = styled.span`
@@ -78,28 +72,4 @@ export const WorkoutMeta = styled.div`
 	display: flex;
 	gap: 6px;
 	align-items: center;
-`;
-
-export const SetsBadge = styled.span`
-	background: rgba(47, 129, 247, 0.15);
-	color: rgba(47, 129, 247, 0.9);
-	border: 1px solid rgba(47, 129, 247, 0.3);
-	padding: 2px 6px;
-	border-radius: 10px;
-	font-size: 10px;
-	font-weight: ${({ theme }) => theme.fontWeight.weightMedium};
-	line-height: 1.2;
-	white-space: nowrap;
-`;
-
-export const TargetBadge = styled.span`
-	background: rgba(255, 255, 255, 0.08);
-	color: rgba(255, 255, 255, 0.6);
-	border: 1px solid rgba(255, 255, 255, 0.15);
-	padding: 2px 6px;
-	border-radius: 10px;
-	font-size: 10px;
-	font-weight: ${({ theme }) => theme.fontWeight.weightRegular};
-	line-height: 1.2;
-	white-space: nowrap;
 `;

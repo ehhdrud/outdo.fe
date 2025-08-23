@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { colors } from '../../styles/color';
+import { colors } from '@/styles/color';
 
 export const ChartWrapper = styled.div`
 	display: flex;

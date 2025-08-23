@@ -95,3 +95,84 @@ grid-template-columns: repeat(19, minmax(0, 1fr));
 ### 예외적 미디어 쿼리 사용 사례
 - SummaryChart처럼 데이터 밀도 조정이 필요한 경우에만
 - 480px, 540px 등 특정 기능에 필요한 경우에만
+
+---
+
+# Import Path 가이드라인
+
+## 절대경로 사용 원칙
+
+### 필수 사용: @ 경로 Alias
+```typescript
+// ✅ 올바른 방법 - @ alias 사용
+import Badge from '@/components/common/Badge/Badge';
+import { theme } from '@/styles/theme';
+import Header from '@/components/Header/Header';
+
+// ❌ 잘못된 방법 - 상대경로 사용 금지
+import Badge from '../../components/common/Badge/Badge';
+import { theme } from '../../../styles/theme';
+import Header from '../Header/Header';
+```
+
+### 설정
+- **TypeScript Config**: `tsconfig.app.json`에서 `@/*: src/*` 경로 설정됨
+- **모든 컴포넌트, 스타일, 유틸리티 import시 @ 사용 필수**
+
+### 예외 케이스
+- 같은 디렉토리 내 파일: `import * as S from './Component.style'`
+- 직계 하위 컴포넌트: 상대경로 허용하되 @ 경로 권장
+
+---
+
+# 코드 형식 가이드라인 (ESLint/Prettier)
+
+## Import 문 정렬 규칙
+
+### simple-import-sort 순서
+```typescript
+// 1. Side effect imports (빈 줄로 구분)
+import './global.css';
+
+// 2. Node modules - expo
+import { StatusBar } from 'expo-status-bar';
+
+// 3. Node modules - react 
+import React from 'react';
+import { useState, useEffect } from 'react';
+
+// 4. Node modules - @ scoped packages
+import styled from '@emotion/styled';
+
+// 5. Node modules - 일반 패키지
+import axios from 'axios';
+
+// 6. @ alias imports (프로젝트 내부)
+import Badge from '@/components/common/Badge/Badge';
+import { theme } from '@/styles/theme';
+
+// 7. 상대경로 imports (같은 디렉토리 또는 상위)
+import * as S from './Component.style';
+import ChildComponent from './ChildComponent';
+```
+
+## Prettier 설정
+```json
+{
+  "printWidth": 160,
+  "useTabs": true,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "semi": true,
+  "arrowParens": "always"
+}
+```
+
+## 필수 규칙
+- **Tab 사용**: 들여쓰기는 탭 2칸
+- **세미콜론**: 필수 사용
+- **Single Quote**: 작은따옴표 사용
+- **Import 정렬**: simple-import-sort 플러그인 순서 준수
+- **Line Width**: 160자 제한
