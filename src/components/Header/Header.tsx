@@ -11,7 +11,7 @@ import { useTokenStore } from '@/store/tokenStore';
 import * as Styled from './style';
 
 const Header = () => {
-	const { isLogin } = useTokenStore();
+	const isLogin = useTokenStore((state) => state.isLogin());
 
 	const [isOpen, setIsOpen] = useState(false);
 	const navigate = useNavigate();
@@ -34,6 +34,18 @@ const Header = () => {
 						<Styled.LogoButton onClick={() => navigate('/')}>
 							<img src={logoSvg} alt="OUTDO" />
 						</Styled.LogoButton>
+						<Styled.HeaderActions>
+							{!isLogin ? (
+								<>
+									<Styled.SignInButton onClick={() => navigate('/auth')}>Sign in</Styled.SignInButton>
+									<Styled.SignUpButton onClick={() => navigate('/auth/sign-up')}>Sign up</Styled.SignUpButton>
+								</>
+							) : (
+								<Styled.UserButton onClick={() => navigate('/profile')}>
+									<UserIcon />
+								</Styled.UserButton>
+							)}
+						</Styled.HeaderActions>
 					</Styled.Nav>
 				</div>
 			</Styled.HeaderContainer>

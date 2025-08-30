@@ -21,7 +21,7 @@ export const HeaderContainer = styled.header<HeaderContainerProps>`
 `;
 export const Nav = styled.nav`
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-between;
 	width: 100%;
 	height: auto;
 	align-items: center;
@@ -122,4 +122,136 @@ export const NavMoLinks = styled.div`
 	gap: 1.2rem;
 	white-space: nowrap;
 	padding-left: 2rem;
+`;
+
+export const HeaderActions = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 12px;
+`;
+
+export const SignInButton = styled.button`
+	background: none;
+	border: none;
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 13px;
+	font-weight: 500;
+	padding: 6px 10px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	&:hover {
+		color: rgba(255, 255, 255, 1);
+	}
+
+	&:focus {
+		outline: none;
+		color: rgba(255, 255, 255, 1);
+	}
+
+	@media (hover: none) {
+		&:active {
+			color: rgba(255, 255, 255, 0.6);
+		}
+	}
+`;
+
+export const SignUpButton = styled.button`
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	border-radius: 5px;
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 13px;
+	font-weight: 500;
+	padding: 6px 12px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.2);
+		color: rgba(255, 255, 255, 1);
+		transform: translateY(-1px);
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(47, 129, 247, 0.4);
+	}
+
+	@media (hover: hover) {
+		&:active {
+			transform: translateY(0) scale(0.98);
+		}
+	}
+
+	@media (hover: none) {
+		&:active {
+			transform: none;
+			background: rgba(255, 255, 255, 0.03);
+		}
+	}
+`;
+
+export const UserButton = styled.button`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 50%;
+	color: rgba(255, 255, 255, 0.9);
+	cursor: pointer;
+	transition: all 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.12);
+		border-color: rgba(255, 255, 255, 0.18);
+		transform: translateY(-1px);
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(47, 129, 247, 0.4);
+	}
+
+	@media (hover: hover) {
+		&:active {
+			transform: translateY(0) scale(0.95);
+		}
+	}
+
+	@media (hover: none) {
+		&:active {
+			transform: none;
+		}
+	}
+
+	svg {
+		width: 16px;
+		height: 16px;
+		opacity: 0.8;
+	}
 `;

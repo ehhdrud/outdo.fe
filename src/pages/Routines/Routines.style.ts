@@ -16,6 +16,12 @@ export const RoutineCard = styled.div`
 	backdrop-filter: blur(8px);
 	cursor: pointer;
 	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 
 	&:hover,
 	&:focus {
@@ -28,8 +34,16 @@ export const RoutineCard = styled.div`
 		box-shadow: 0 0 0 2px rgba(47, 129, 247, 0.4);
 	}
 
-	&:active {
-		transform: scale(0.98);
+	@media (hover: hover) {
+		&:active {
+			transform: scale(0.98);
+		}
+	}
+
+	@media (hover: none) {
+		&:active {
+			transform: none;
+		}
 	}
 `;
 

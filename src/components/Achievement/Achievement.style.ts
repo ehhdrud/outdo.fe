@@ -31,7 +31,7 @@ export const DateText = styled.span`
 `;
 
 export const RoutineText = styled.span`
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 500;
 	color: ${colors.text.primary};
 	flex: 1;
@@ -39,7 +39,7 @@ export const RoutineText = styled.span`
 `;
 
 export const AchievementText = styled.span`
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 600;
 	color: ${colors.accent.primary};
 	min-width: 60px;

@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import AuthLayout from '@/components/Layout/AuthLayout';
 import DefaultLayout from '@/components/Layout/Layout';
 import FindPassword from '@/pages/Auth/FindPassword/FindPassword';
-import Login from '@/pages/Auth/Login/Login';
+import Signin from '@/pages/Auth/Signin/Signin';
 import Signup from '@/pages/Auth/Signup/Signup';
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import Profile from '@/pages/Profile/Profile';
@@ -17,8 +18,13 @@ const router = createBrowserRouter([
 			{ path: '/routines', element: <Routines /> },
 			{ path: '/routines/:id', element: <RoutineDetail /> },
 			{ path: '/profile', element: <Profile /> },
-			{ path: '/auth/login', element: <Login /> },
-			{ path: '/auth/signup', element: <Signup /> },
+		],
+	},
+	{
+		element: <AuthLayout />,
+		children: [
+			{ path: '/auth', element: <Signin /> },
+			{ path: '/auth/sign-up', element: <Signup /> },
 			{ path: '/auth/findpw', element: <FindPassword /> },
 		],
 	},

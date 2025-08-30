@@ -20,7 +20,8 @@
       "Bash(npm run lint:*)",
       "Bash(npx prettier:*)",
       "WebFetch(domain:github.com)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "WebSearch"
     ],
     "deny": []
   }
