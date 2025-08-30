@@ -14,6 +14,17 @@ export const Logo = styled.img`
 	height: 40px;
 	width: auto;
 	margin-bottom: 32px;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+
+	&:hover {
+		opacity: 0.8;
+	}
+
+	&:active {
+		opacity: 0.6;
+	}
 `;
 
 export const SigninForm = styled.form`

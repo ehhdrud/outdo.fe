@@ -33,7 +33,7 @@ const Signin = () => {
 
 	return (
 		<S.SigninWrapper>
-			<S.Logo src={logoSvg} alt="OUTDO" />
+			<S.Logo src={logoSvg} alt="OUTDO" onClick={() => navigate('/')} />
 
 			<S.SigninForm onSubmit={handleEmailSignin}>
 				<S.InputGroup>
