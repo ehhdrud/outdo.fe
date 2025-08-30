@@ -25,7 +25,7 @@ const router = createBrowserRouter([
 		children: [
 			{ path: '/auth', element: <Signin /> },
 			{ path: '/auth/sign-up', element: <Signup /> },
-			{ path: '/auth/findpw', element: <FindPassword /> },
+			{ path: '/auth/find-pw', element: <FindPassword /> },
 		],
 	},
 ]);

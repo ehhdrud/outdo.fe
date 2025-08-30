@@ -21,7 +21,8 @@
       "Bash(npx prettier:*)",
       "WebFetch(domain:github.com)",
       "Bash(grep:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(curl:*)"
     ],
     "deny": []
   }
