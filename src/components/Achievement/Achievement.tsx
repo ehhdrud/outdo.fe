@@ -11,7 +11,6 @@ interface AchievementData {
 }
 
 const Achievement: React.FC = () => {
-	// mockSummaryData에서 achievement가 있는 최근 5개 추출
 	const recentAchievements: AchievementData[] = mockSummaryData
 		.filter((day) => day.achievement !== null && day.routine !== null)
 		.slice(0, 5)

@@ -5,7 +5,7 @@ import * as S from './Routines.style.ts';
 interface Workout {
 	name: string;
 	sets: number;
-	maxWeight?: string; // "80kg", "120lb", etc.
+	maxWeight?: string;
 }
 
 interface Routine {
@@ -16,7 +16,6 @@ interface Routine {
 
 const Routines = () => {
 	const handleRoutineClick = (routine: Routine) => {
-		// Future: Handle routine interaction (start, edit, view details, etc.)
 		console.log(`Clicked on routine: ${routine.routine}`);
 	};
 

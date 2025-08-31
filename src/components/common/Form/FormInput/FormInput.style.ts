@@ -10,7 +10,6 @@ export const Label = styled.label`
 	font-size: 14px;
 	font-weight: 500;
 	color: rgba(255, 255, 255, 0.8);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 `;
 
 export const Input = styled.input`
@@ -20,7 +19,6 @@ export const Input = styled.input`
 	padding: 12px 16px;
 	font-size: 14px;
 	color: rgba(255, 255, 255, 0.9);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	transition: all 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 
@@ -54,7 +52,6 @@ export const Input = styled.input`
 export const LoadingText = styled.p`
 	font-size: 12px;
 	color: rgba(255, 255, 255, 0.6);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	margin: 0;
 	font-style: italic;
 `;
@@ -62,6 +59,5 @@ export const LoadingText = styled.p`
 export const ErrorMessage = styled.p`
 	font-size: 12px;
 	color: rgba(248, 81, 73, 0.9);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	margin: 0;
 `;

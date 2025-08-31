@@ -17,7 +17,6 @@ export const LayoutWrapper = styled.div`
 	pointer-events: none;
 	z-index: 50;
 
-	/* 자식 요소들이 상호작용 가능하도록 */
 	> * {
 		pointer-events: auto;
 	}
@@ -58,7 +57,6 @@ export const MainLayout = styled.main`
 		background: rgba(255, 255, 255, 0.3);
 	}
 
-	/* Firefox */
 	scrollbar-width: thin;
 	scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
 `;

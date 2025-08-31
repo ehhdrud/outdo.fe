@@ -6,18 +6,14 @@ import * as S from './SummaryChart.style';
 
 interface SummaryChartProps {
 	data?: number[];
-	showDebugInfo?: boolean; // 테스트용 디버그 정보 표시
+	showDebugInfo?: boolean;
 }
 
 const SummaryChart: React.FC<SummaryChartProps> = ({ data, showDebugInfo = false }) => {
-	// 데이터가 제공되지 않으면 목데이터 사용
-	// ~479px: 19열(133일), 480-539px: 23열(161일), 540px+: 26열(182일)
-	// 데이터를 뒤집어서 최신 데이터가 우측에 배치되도록 함
 	const chartData = data ? [...data].reverse() : [...mockActivityLevels].reverse();
 	const reversedSummaryData = [...mockSummaryData].reverse();
 	const weekLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-	// 활동 레벨별 개수 계산
 	const activityStats = chartData.reduce(
 		(acc, level) => {
 			acc[level as keyof typeof acc]++;

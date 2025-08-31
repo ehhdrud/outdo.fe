@@ -51,7 +51,6 @@ export const ForgotPasswordButton = styled.button`
 	font-weight: 500;
 	cursor: pointer;
 	transition: color 0.2s ease;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -98,7 +97,6 @@ export const DividerText = styled.span`
 	font-size: 12px;
 	font-weight: 500;
 	padding: 0 12px;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 `;
 
 export const GoogleButtonContent = styled.div`
@@ -125,7 +123,6 @@ export const SignupLink = styled.p`
 	margin: 24px 0 0 0;
 	font-size: 14px;
 	color: rgba(255, 255, 255, 0.6);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 `;
 
 export const SignupLinkButton = styled.button`
@@ -136,7 +133,6 @@ export const SignupLinkButton = styled.button`
 	font-weight: 500;
 	cursor: pointer;
 	transition: color 0.2s ease;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;

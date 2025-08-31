@@ -25,7 +25,6 @@ const Signup = () => {
 	const [isEmailVerified, setIsEmailVerified] = useState(false);
 	const [resendTimer, setResendTimer] = useState(0);
 
-	// 재전송 타이머 효과
 	useEffect(() => {
 		if (resendTimer > 0) {
 			const timer = setTimeout(() => {
@@ -42,7 +41,6 @@ const Signup = () => {
 			[name]: value,
 		}));
 
-		// Clear errors when user starts typing
 		if (name === 'email' && emailError) {
 			setEmailError('');
 		}
@@ -61,18 +59,15 @@ const Signup = () => {
 		setEmailError('');
 
 		try {
-			// TODO: Implement email duplicate check and send verification code
-			// Simulated API call
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
-			// Simulate duplicate check
 			if (formData.email === 'test@example.com') {
 				setEmailError('You are already an OUTDO member!');
 				return;
 			}
 
 			setIsEmailSent(true);
-			setResendTimer(60); // 60초 타이머 시작
+			setResendTimer(60);
 			console.log('Verification code sent to:', formData.email);
 		} catch (error) {
 			setEmailError('Failed to send verification code. Please try again.');
@@ -91,11 +86,8 @@ const Signup = () => {
 		setVerificationError('');
 
 		try {
-			// TODO: Implement verification code check
-			// Simulated API call
 			await new Promise((resolve) => setTimeout(resolve, 500));
 
-			// Simulate verification (123456 is correct code)
 			if (formData.verificationCode === '123456') {
 				setIsEmailVerified(true);
 				console.log('Email verified successfully');
@@ -123,13 +115,11 @@ const Signup = () => {
 		e.preventDefault();
 		if (emailError || passwordError || verificationError) return;
 
-		// 이메일 인증 확인
 		if (!isEmailVerified) {
 			setVerificationError('Please complete email verification');
 			return;
 		}
 
-		// Final validation
 		if (formData.password !== formData.confirmPassword) {
 			setPasswordError('Passwords do not match');
 			return;
@@ -140,12 +130,10 @@ const Signup = () => {
 			return;
 		}
 
-		// TODO: Implement email/password signup
 		console.log('Email signup:', formData);
 	};
 
 	const handleGoogleSignup = () => {
-		// TODO: Implement Google OAuth
 		console.log('Google signup clicked');
 	};
 

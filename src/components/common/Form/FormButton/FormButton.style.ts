@@ -101,7 +101,6 @@ export const Button = styled.button<ButtonProps>`
 	border-radius: 6px;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;

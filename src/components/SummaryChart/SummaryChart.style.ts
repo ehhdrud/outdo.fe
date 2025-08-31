@@ -4,36 +4,33 @@ import { colors } from '@/styles/color';
 
 export const ChartWrapper = styled.div`
 	display: flex;
-	align-items: stretch; /* 두 컴포넌트의 높이 동일하게 */
+	align-items: stretch;
 	gap: 4px;
 	position: relative;
 	width: 100%;
-	min-width: 294px; /* WeekLabels(20px) + gap(4px) + GridContainer(270px) */
+	min-width: 294px;
 
-	/* 480px 이상에서 최소 너비 업데이트 */
 	@media (min-width: 480px) {
-		min-width: 348px; /* WeekLabels(20px) + gap(4px) + GridContainer(324px) */
+		min-width: 348px;
 	}
 
-	/* 540px 이상에서 최소 너비 업데이트 */
 	@media (min-width: 540px) {
-		min-width: 394px; /* WeekLabels(20px) + gap(4px) + GridContainer(370px) */
+		min-width: 394px;
 	}
 	overflow-x: auto;
-	scrollbar-width: thin; /* Firefox용 얇은 스크롤바 */
-	scrollbar-color: transparent transparent; /* Firefox용 투명 스크롤바 */
+	scrollbar-width: thin;
+	scrollbar-color: transparent transparent;
 
 	&:hover {
-		scrollbar-color: ${colors.surface.border} transparent; /* Firefox용 호버 시 스크롤바 표시 */
+		scrollbar-color: ${colors.surface.border} transparent;
 	}
 
-	/* 커스텀 스크롤바 스타일링 - 필요할 때만 보임 */
 	&::-webkit-scrollbar {
 		height: 4px;
 	}
 
 	&::-webkit-scrollbar-track {
-		background: transparent; /* 트랙 투명 */
+		background: transparent;
 	}
 
 	&::-webkit-scrollbar-thumb {
@@ -46,7 +43,6 @@ export const ChartWrapper = styled.div`
 		}
 	}
 
-	/* 스크롤이 필요없을 때 숨김 */
 	&::-webkit-scrollbar-thumb {
 		background: transparent;
 	}
@@ -63,10 +59,10 @@ export const ChartWrapper = styled.div`
 export const WeekLabels = styled.div`
 	display: grid;
 	grid-template-rows: repeat(7, 1fr);
-	gap: 2px; /* GridContainer와 동일한 gap */
+	gap: 2px;
 	flex-shrink: 0;
 	width: 20px;
-	min-width: 20px; /* 최소 너비 보장 */
+	min-width: 20px;
 `;
 
 export const WeekLabel = styled.div`
@@ -80,26 +76,24 @@ export const WeekLabel = styled.div`
 
 export const GridContainer = styled.div`
 	display: grid;
-	grid-template-columns: repeat(19, minmax(0, 1fr)); /* 최소 크기 0으로 제한 */
-	grid-template-rows: repeat(7, 1fr); /* 7행 명시적 정의 */
-	grid-auto-flow: column; /* 열 우선 배치 (위에서 아래로, 다음 열로) */
+	grid-template-columns: repeat(19, minmax(0, 1fr));
+	grid-template-rows: repeat(7, 1fr);
+	grid-auto-flow: column;
 	gap: 2px;
-	width: calc(100% - 24px); /* 100% - WeekLabels(20px) - gap(4px) */
-	aspect-ratio: 19 / 7; /* 19열 7행 비율 유지 */
-	min-width: 270px; /* 19 * 12px + 18 * 2px(gap) = 270px 최소 너비 */
+	width: calc(100% - 24px);
+	aspect-ratio: 19 / 7;
+	min-width: 270px;
 
-	/* 480px 이상에서 23열로 변경 */
 	@media (min-width: 480px) {
-		grid-template-columns: repeat(23, minmax(0, 1fr)); /* 최소 크기 0으로 제한 */
-		aspect-ratio: 23 / 7; /* 23열 7행 비율 유지 */
-		min-width: 324px; /* 23 * 12px + 22 * 2px(gap) = 324px 최소 너비 */
+		grid-template-columns: repeat(23, minmax(0, 1fr));
+		aspect-ratio: 23 / 7;
+		min-width: 324px;
 	}
 
-	/* 540px 이상에서 26열로 변경 */
 	@media (min-width: 540px) {
-		grid-template-columns: repeat(26, minmax(0, 1fr)); /* 최소 크기 0으로 제한 */
-		aspect-ratio: 26 / 7; /* 26열 7행 비율 유지 */
-		min-width: 370px; /* 26 * 12px + 25 * 2px(gap) = 370px 최소 너비 */
+		grid-template-columns: repeat(26, minmax(0, 1fr));
+		aspect-ratio: 26 / 7;
+		min-width: 370px;
 	}
 `;
 
@@ -109,21 +103,20 @@ interface DaySquareProps {
 
 export const DaySquare = styled.div<DaySquareProps>`
 	width: 100%;
-	aspect-ratio: 1; /* 정사각형 비율 유지 */
+	aspect-ratio: 1;
 	border-radius: 2px;
 	cursor: ${({ $activity }) => ($activity === 0 ? 'default' : 'pointer')};
 	transition: all 0.2s ease;
-	box-sizing: border-box; /* border를 width에 포함 */
+	box-sizing: border-box;
 
-	/* 프로젝트의 파란색 테마를 사용한 활동 레벨 색상 */
 	background-color: ${({ $activity }) => {
 		switch ($activity) {
 			case 0:
-				return colors.surface.borderSubtle; // 비활성
+				return colors.surface.borderSubtle;
 			case 1:
-				return colors.accent.muted; // 낮은 활동
+				return colors.accent.muted;
 			case 2:
-				return colors.accent.primary; // 높은 활동
+				return colors.accent.primary;
 			default:
 				return colors.surface.borderSubtle;
 		}
@@ -132,21 +125,17 @@ export const DaySquare = styled.div<DaySquareProps>`
 	border: 1px solid ${colors.surface.border};
 
 	&:hover {
-		/* activity가 0이 아닐 때만 호버 효과 적용 */
 		border-color: ${({ $activity }) => ($activity === 0 ? colors.surface.border : colors.accent.hover)};
 		filter: ${({ $activity }) => ($activity === 0 ? 'none' : 'brightness(1.2)')};
 		transform: ${({ $activity }) => ($activity === 0 ? 'none' : 'scale(1.05)')};
 	}
 
-	/* 3단계 반응형 숨김 처리 - 최신 데이터 우선 표시 */
-	/* 479px 이하: 최신 133개(19열)만 표시, 이전 49개 숨김 */
 	&:nth-of-type(-n + 49) {
 		@media (max-width: 479px) {
 			display: none;
 		}
 	}
 
-	/* 480-539px: 최신 161개(23열)만 표시, 이전 21개 숨김 */
 	&:nth-of-type(-n + 21) {
 		@media (min-width: 480px) and (max-width: 539px) {
 			display: none;
@@ -154,5 +143,4 @@ export const DaySquare = styled.div<DaySquareProps>`
 	}
 `;
 
-/* 인덱스 파일용 스타일 익스포트 */
 export * from './SummaryChart.style';

@@ -59,7 +59,6 @@ export const MenuContainer = styled.div`
 			padding: 2rem;
 			border: none;
 			background-color: transparent;
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 			font-size: ${(props) => props.theme.fontSize.sizeLgPx};
 			font-weight: 500;
 			color: ${(props) => props.theme.colors.text.secondary};
@@ -139,7 +138,6 @@ export const SignInButton = styled.button`
 	padding: 6px 10px;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -173,7 +171,6 @@ export const SignUpButton = styled.button`
 	padding: 6px 12px;
 	cursor: pointer;
 	transition: all 0.2s ease;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;

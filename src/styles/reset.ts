@@ -1,8 +1,5 @@
 import { css } from '@emotion/react';
 
-/**
- * CSS 스타일 초기화
- */
 const reset = css`
 	* {
 		padding: 0;
@@ -98,7 +95,6 @@ const reset = css`
 		vertical-align: baseline;
 	}
 
-	/* 구형 브라우저를 위한 HTML5 display-role 초기화 */
 	article,
 	aside,
 	details,
@@ -171,7 +167,6 @@ const reset = css`
 	blockquote:after,
 	q:before,
 	q:after {
-		/* content: ''; */
 		content: none;
 	}
 

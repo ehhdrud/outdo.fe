@@ -41,7 +41,6 @@ export const ButtonWrapper = styled.div`
 export const SuccessMessage = styled.p`
 	font-size: 14px;
 	color: rgba(63, 185, 80, 0.9);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	margin: 0;
 	padding: 12px;
 	background: rgba(63, 185, 80, 0.1);
@@ -52,7 +51,6 @@ export const SuccessMessage = styled.p`
 export const ResendText = styled.p`
 	font-size: 12px;
 	color: rgba(255, 255, 255, 0.6);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	margin: 4px 0 0 0;
 `;
 
@@ -64,7 +62,6 @@ export const ResendButton = styled.button`
 	font-weight: 500;
 	cursor: pointer;
 	transition: color 0.2s ease;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -93,7 +90,6 @@ export const BackLink = styled.p`
 	margin: 4px 0 4px 0;
 	font-size: 14px;
 	color: rgba(255, 255, 255, 0.6);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 `;
 
 export const BackLinkButton = styled.button`
@@ -104,7 +100,6 @@ export const BackLinkButton = styled.button`
 	font-weight: 500;
 	cursor: pointer;
 	transition: color 0.2s ease;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -123,7 +118,6 @@ export const BackLinkButton = styled.button`
 	}
 `;
 
-// Success Screen Styles
 export const SuccessContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -153,14 +147,12 @@ export const SuccessTitle = styled.h2`
 	font-size: 20px;
 	font-weight: 600;
 	color: rgba(255, 255, 255, 0.9);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	margin: 0 0 8px 0;
 `;
 
 export const SuccessText = styled.p`
 	font-size: 14px;
 	color: rgba(255, 255, 255, 0.6);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	margin: 4px 0;
 	line-height: 1.5;
 `;

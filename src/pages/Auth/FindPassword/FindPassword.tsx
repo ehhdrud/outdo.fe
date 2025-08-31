@@ -25,7 +25,6 @@ const FindPassword = () => {
 	const [isPasswordReset, setIsPasswordReset] = useState(false);
 	const [resendTimer, setResendTimer] = useState(0);
 
-	// 재전송 타이머 효과
 	useEffect(() => {
 		if (resendTimer > 0) {
 			const timer = setTimeout(() => {
@@ -42,7 +41,6 @@ const FindPassword = () => {
 			[name]: value,
 		}));
 
-		// Clear errors when user starts typing
 		if (name === 'email' && emailError) {
 			setEmailError('');
 		}
@@ -61,18 +59,15 @@ const FindPassword = () => {
 		setEmailError('');
 
 		try {
-			// TODO: Implement email check and send reset code
-			// Simulated API call
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
-			// Simulate email check
 			if (formData.email === 'notfound@example.com') {
 				setEmailError('Email address not found');
 				return;
 			}
 
 			setIsEmailSent(true);
-			setResendTimer(60); // 60초 타이머 시작
+			setResendTimer(60);
 			console.log('Reset code sent to:', formData.email);
 		} catch (error) {
 			setEmailError('Failed to send reset email. Please try again.');
@@ -91,11 +86,8 @@ const FindPassword = () => {
 		setVerificationError('');
 
 		try {
-			// TODO: Implement verification code check
-			// Simulated API call
 			await new Promise((resolve) => setTimeout(resolve, 500));
 
-			// Simulate verification (123456 is correct code)
 			if (formData.verificationCode === '123456') {
 				setIsCodeVerified(true);
 				console.log('Code verified successfully');
@@ -123,7 +115,6 @@ const FindPassword = () => {
 		e.preventDefault();
 		if (emailError || verificationError || passwordError) return;
 
-		// Final validation
 		if (formData.newPassword !== formData.confirmPassword) {
 			setPasswordError('Passwords do not match');
 			return;
@@ -137,8 +128,6 @@ const FindPassword = () => {
 		setIsLoading(true);
 
 		try {
-			// TODO: Implement password reset
-			// Simulated API call
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
 			setIsPasswordReset(true);
@@ -179,7 +168,6 @@ const FindPassword = () => {
 		<S.FindPasswordWrapper>
 			<S.Logo src={logoSvg} alt="OUTDO" onClick={() => navigate('/')} />
 			<S.FindPasswordForm onSubmit={handleResetPassword}>
-				{/* Step 1: Email Input */}
 				<FormInputWithButton
 					label="Email address"
 					type="email"
@@ -197,7 +185,6 @@ const FindPassword = () => {
 					required
 				/>
 
-				{/* Step 2: Verification Code */}
 				{isEmailSent && !isCodeVerified && (
 					<>
 						<FormInputWithButton
@@ -224,7 +211,6 @@ const FindPassword = () => {
 					</>
 				)}
 
-				{/* Step 3: New Password */}
 				{isCodeVerified && (
 					<>
 						<S.SuccessMessage>✅ Code verified! Now set your new password.</S.SuccessMessage>

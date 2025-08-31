@@ -21,7 +21,6 @@ export const SectionContent = styled.div`
 	width: 100%;
 	overflow-x: auto;
 
-	/* 스크롤바 스타일링 */
 	&::-webkit-scrollbar {
 		height: 6px;
 	}

@@ -24,12 +24,10 @@ const Signin = () => {
 
 	const handleEmailSignin = (e: React.FormEvent) => {
 		e.preventDefault();
-		// TODO: Implement email/password authentication
 		console.log('Email signin:', formData);
 	};
 
 	const handleGoogleSignin = () => {
-		// TODO: Implement Google OAuth
 		console.log('Google signin clicked');
 	};
 

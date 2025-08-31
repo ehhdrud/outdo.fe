@@ -2,9 +2,6 @@ import { css } from '@emotion/react';
 
 import { BOTTOM_NAV_HEIGHT, HEADER_HEIGHT } from '@/constants/layout.constant.ts';
 
-/**
- * Global 적용 스타일
- */
 const global = css`
 	html {
 		font-size: 10px;
@@ -13,15 +10,7 @@ const global = css`
 	}
 
 	body {
-		font-family:
-			'Inter',
-			-apple-system,
-			BlinkMacSystemFont,
-			'Segoe UI',
-			'Roboto',
-			'Helvetica Neue',
-			Arial,
-			sans-serif;
+		font-family: 'Inter', sans-serif;
 		font-size: 16px;
 		font-weight: 400;
 		line-height: 1.5;
@@ -34,12 +23,10 @@ const global = css`
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 
-		/* 세련된 배경 그라디에션 */
 		background: linear-gradient(135deg, #0d1117 0%, #1a1e26 15%, #0d1117 40%, #12161f 65%, #0d1117 100%);
 		background-attachment: fixed;
 		min-height: 100vh;
 
-		/* 은은한 패턴 오버레이 */
 		&::before {
 			content: '';
 			position: fixed;
@@ -54,8 +41,6 @@ const global = css`
 			z-index: -1;
 		}
 	}
-
-	/* main 스타일 제거 - MainLayout으로 대체됨 */
 
 	input,
 	textarea {
