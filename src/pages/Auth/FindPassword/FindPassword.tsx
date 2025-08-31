@@ -157,7 +157,7 @@ const FindPassword = () => {
 					<S.SuccessText>Your password has been reset successfully.</S.SuccessText>
 					<S.SuccessText>You can now sign in with your new password.</S.SuccessText>
 					<S.BackLink>
-						All set? <S.BackLinkButton onClick={() => navigate('/auth')}>Go to sign in</S.BackLinkButton>
+						<S.BackLinkButton onClick={() => navigate('/auth')}>Go to sign in</S.BackLinkButton>
 					</S.BackLink>
 				</S.SuccessContainer>
 			</S.FindPasswordWrapper>
@@ -182,11 +182,12 @@ const FindPassword = () => {
 					onButtonClick={handleSendResetEmail}
 					buttonDisabled={!formData.email || isLoading || isCodeVerified || resendTimer > 0}
 					disabled={isCodeVerified}
+					buttonWidth="58px"
 					required
 				/>
 
 				{isEmailSent && !isCodeVerified && (
-					<>
+					<div>
 						<FormInputWithButton
 							label="Verification code"
 							type="text"
@@ -199,6 +200,7 @@ const FindPassword = () => {
 							buttonText="Verify"
 							onButtonClick={handleVerifyCode}
 							buttonDisabled={!formData.verificationCode || formData.verificationCode.length !== 6 || isLoading}
+							buttonWidth="58px"
 							maxLength={6}
 							required
 						/>
@@ -208,7 +210,7 @@ const FindPassword = () => {
 								{resendTimer > 0 ? `Resend in ${resendTimer}s` : 'Resend'}
 							</S.ResendButton>
 						</S.ResendText>
-					</>
+					</div>
 				)}
 
 				{isCodeVerified && (

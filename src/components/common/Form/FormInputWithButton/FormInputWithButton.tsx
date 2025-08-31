@@ -11,14 +11,32 @@ interface FormInputWithButtonProps extends React.InputHTMLAttributes<HTMLInputEl
 	buttonText: string;
 	onButtonClick: () => void;
 	buttonDisabled?: boolean;
+	buttonWidth?: string;
 }
 
-const FormInputWithButton: React.FC<FormInputWithButtonProps> = ({ label, error, loading, buttonText, onButtonClick, buttonDisabled, ...inputProps }) => (
+const FormInputWithButton: React.FC<FormInputWithButtonProps> = ({
+	label,
+	error,
+	loading,
+	buttonText,
+	onButtonClick,
+	buttonDisabled,
+	buttonWidth,
+	...inputProps
+}) => (
 	<S.InputGroup>
 		<S.Label htmlFor={inputProps.id}>{label}</S.Label>
 		<S.InputContainer>
 			<S.Input {...inputProps} className={error ? 'error' : inputProps.className} />
-			<FormButton type="button" variant="primary" size="small" onClick={onButtonClick} disabled={buttonDisabled} fullWidth={false}>
+			<FormButton
+				type="button"
+				variant="primary"
+				size="small"
+				onClick={onButtonClick}
+				disabled={buttonDisabled}
+				fullWidth={false}
+				style={buttonWidth ? { width: buttonWidth } : {}}
+			>
 				{buttonText}
 			</FormButton>
 		</S.InputContainer>

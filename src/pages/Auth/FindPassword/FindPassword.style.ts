@@ -51,7 +51,7 @@ export const SuccessMessage = styled.p`
 export const ResendText = styled.p`
 	font-size: 12px;
 	color: rgba(255, 255, 255, 0.6);
-	margin: 4px 0 0 0;
+	margin: 8px 0 0 0;
 `;
 
 export const ResendButton = styled.button`
@@ -87,7 +87,7 @@ export const ResendButton = styled.button`
 
 export const BackLink = styled.p`
 	text-align: center;
-	margin: 4px 0 4px 0;
+	margin: 24px 0 0 0;
 	font-size: 14px;
 	color: rgba(255, 255, 255, 0.6);
 `;
