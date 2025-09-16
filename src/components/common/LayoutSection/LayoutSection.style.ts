@@ -5,16 +5,20 @@ import { colors } from '@/styles/color';
 export const SectionContainer = styled.div`
 	width: 100%;
 	padding: 20px;
-	background: ${colors.background.secondary};
+	background: linear-gradient(135deg, #1a1f2e 0%, #1e2332 100%);
+	border: 1px solid #2a3441;
 	border-radius: 8px;
-	border: 1px solid ${colors.surface.border};
+	position: relative;
+	overflow: hidden;
 `;
 
 export const SectionTitle = styled.h3`
-	color: ${colors.text.primary};
+	color: #f0f6fc;
 	font-size: 16px;
 	font-weight: 600;
 	margin: 0 0 16px 0;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	letter-spacing: 0.3px;
 `;
 
 export const SectionContent = styled.div`
@@ -26,15 +30,16 @@ export const SectionContent = styled.div`
 	}
 
 	&::-webkit-scrollbar-track {
-		background: transparent;
+		background: rgba(255, 255, 255, 0.03);
+		border-radius: 3px;
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background: ${colors.surface.muted};
+		background: #3a4553;
 		border-radius: 3px;
 	}
 
 	&::-webkit-scrollbar-thumb:hover {
-		background: ${colors.text.muted};
+		background: #4a5563;
 	}
 `;

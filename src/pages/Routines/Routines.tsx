@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import Badge from '@/components/common/Badge/Badge';
 
 import * as S from './Routines.style.ts';
@@ -15,8 +17,10 @@ interface Routine {
 }
 
 const Routines = () => {
+	const navigate = useNavigate();
+
 	const handleRoutineClick = (routine: Routine) => {
-		console.log(`Clicked on routine: ${routine.routine}`);
+		navigate(`/routines/${routine.pk}`);
 	};
 
 	const handleKeyDown = (event: React.KeyboardEvent, routine: Routine) => {

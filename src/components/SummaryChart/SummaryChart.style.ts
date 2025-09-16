@@ -22,7 +22,7 @@ export const ChartWrapper = styled.div`
 	scrollbar-color: transparent transparent;
 
 	&:hover {
-		scrollbar-color: ${colors.surface.border} transparent;
+		scrollbar-color: #3a4553 transparent;
 	}
 
 	&::-webkit-scrollbar {
@@ -30,16 +30,17 @@ export const ChartWrapper = styled.div`
 	}
 
 	&::-webkit-scrollbar-track {
-		background: transparent;
+		background: rgba(255, 255, 255, 0.03);
+		border-radius: 2px;
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background: ${colors.surface.border};
+		background: #3a4553;
 		border-radius: 2px;
 		transition: background-color 0.2s ease;
 
 		&:hover {
-			background: ${colors.text.muted};
+			background: #4a5563;
 		}
 	}
 
@@ -48,10 +49,10 @@ export const ChartWrapper = styled.div`
 	}
 
 	&:hover::-webkit-scrollbar-thumb {
-		background: ${colors.surface.border};
+		background: #3a4553;
 
 		&:hover {
-			background: ${colors.text.muted};
+			background: #4a5563;
 		}
 	}
 `;
@@ -69,9 +70,10 @@ export const WeekLabel = styled.div`
 	display: flex;
 	align-items: center;
 	font-size: 10px;
-	color: ${colors.text.muted};
+	color: #8b949e;
 	line-height: 1;
 	width: 20px;
+	font-weight: 500;
 `;
 
 export const GridContainer = styled.div`
@@ -112,20 +114,20 @@ export const DaySquare = styled.div<DaySquareProps>`
 	background-color: ${({ $activity }) => {
 		switch ($activity) {
 			case 0:
-				return colors.surface.borderSubtle;
+				return '#232935';
 			case 1:
-				return colors.accent.muted;
+				return '#1f6feb60';
 			case 2:
-				return colors.accent.primary;
+				return '#58a6ff';
 			default:
-				return colors.surface.borderSubtle;
+				return '#232935';
 		}
 	}};
 
-	border: 1px solid ${colors.surface.border};
+	border: 1px solid #2a3441;
 
 	&:hover {
-		border-color: ${({ $activity }) => ($activity === 0 ? colors.surface.border : colors.accent.hover)};
+		border-color: ${({ $activity }) => ($activity === 0 ? '#2a3441' : '#58a6ff')};
 		filter: ${({ $activity }) => ($activity === 0 ? 'none' : 'brightness(1.2)')};
 		transform: ${({ $activity }) => ($activity === 0 ? 'none' : 'scale(1.05)')};
 	}

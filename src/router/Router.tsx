@@ -5,6 +5,7 @@ import DefaultLayout from '@/components/Layout/Layout';
 import FindPassword from '@/pages/Auth/FindPassword/FindPassword';
 import Signin from '@/pages/Auth/Signin/Signin';
 import Signup from '@/pages/Auth/Signup/Signup';
+import ChangePassword from '@/pages/ChangePassword/ChangePassword';
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import Profile from '@/pages/Profile/Profile';
 import RoutineDetail from '@/pages/Routines/RoutineDetail';
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
 			{ path: '/routines', element: <Routines /> },
 			{ path: '/routines/:id', element: <RoutineDetail /> },
 			{ path: '/profile', element: <Profile /> },
+			{ path: '/profile/change-password', element: <ChangePassword /> },
 		],
 	},
 	{

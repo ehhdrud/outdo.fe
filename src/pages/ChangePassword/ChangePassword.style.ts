@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const ProfileWrapper = styled.div`
+export const ChangePasswordWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -10,7 +10,7 @@ export const ProfileWrapper = styled.div`
 	margin: 0 auto;
 `;
 
-export const ProfileForm = styled.form`
+export const ChangePasswordForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -21,12 +21,12 @@ export const ButtonWrapper = styled.div`
 	margin-top: 8px;
 `;
 
-export const ChangePasswordLink = styled.div`
+export const BackToProfileLink = styled.div`
 	text-align: center;
 	margin: 24px 0 0 0;
 `;
 
-export const ChangePasswordButton = styled.button`
+export const BackToProfileButton = styled.button`
 	background: none;
 	border: none;
 	color: #2f81f7;
