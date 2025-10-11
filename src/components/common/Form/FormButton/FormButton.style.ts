@@ -120,10 +120,4 @@ export const Button = styled.button<ButtonProps>`
 		cursor: not-allowed;
 		transform: none;
 	}
-
-	@media (hover: hover) {
-		&:active:not(:disabled) {
-			transform: translateY(0) scale(0.98);
-		}
-	}
 `;
