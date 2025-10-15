@@ -6,7 +6,7 @@ export const ProfileWrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	max-width: 480px;
+	max-width: 560px;
 	margin: 0 auto;
 `;
 
