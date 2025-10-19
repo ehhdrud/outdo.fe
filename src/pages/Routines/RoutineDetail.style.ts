@@ -32,23 +32,53 @@ export const WorkoutCard = styled.div`
 	&:active {
 		cursor: grabbing;
 	}
-
-	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: linear-gradient(135deg, rgba(47, 129, 247, 0.03) 0%, rgba(30, 35, 50, 0.05) 100%);
-		pointer-events: none;
-	}
 `;
 
 export const WorkoutList = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
+`;
+
+export const NumberInput = styled.input`
+	background: transparent;
+	border: 1px solid #2a3441;
+	border-radius: 4px;
+	padding: 4px 8px;
+	color: white;
+	outline: none;
+	width: 60px;
+
+	/* 스피너 버튼 숨기기 */
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Firefox에서 스피너 숨기기 */
+	&[type='number'] {
+		-moz-appearance: textfield;
+	}
+`;
+
+export const WeightInputGroup = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 8px;
+`;
+
+export const RepsInputGroup = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 8px;
+`;
+
+export const SetRow = styled.div`
+	display: flex;
+	gap: 16px;
+	align-items: center;
+	margin-bottom: 8px;
 `;
 
 export const ButtonWrapper = styled.div`

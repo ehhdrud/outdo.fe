@@ -7,7 +7,7 @@ import * as S from './RoutineDetail.style.ts';
 // 각 세트의 상세 정보
 interface WorkoutSet {
 	id: string; // 고유 식별자 (드래그 앤 드롭 시 필요)
-	weight: string; // 무게 (예: '100kg', 'bodyweight')
+	weight: number; // 무게 (숫자만)
 	reps: number; // 반복 횟수
 	completed?: boolean; // 완료 여부 (선택사항)
 }
@@ -36,9 +36,9 @@ const RoutineDetail = () => {
 				name: 'leg press',
 				order: 0,
 				sets: [
-					{ id: 'set-1-1', weight: '100kg', reps: 10 },
-					{ id: 'set-1-2', weight: '100kg', reps: 10 },
-					{ id: 'set-1-3', weight: '100kg', reps: 10 },
+					{ id: 'set-1-1', weight: 100, reps: 10 },
+					{ id: 'set-1-2', weight: 100, reps: 10 },
+					{ id: 'set-1-3', weight: 100, reps: 10 },
 				],
 			},
 			{
@@ -46,9 +46,9 @@ const RoutineDetail = () => {
 				name: 'squat',
 				order: 1,
 				sets: [
-					{ id: 'set-2-1', weight: '80kg', reps: 8 },
-					{ id: 'set-2-2', weight: '80kg', reps: 8 },
-					{ id: 'set-2-3', weight: '80kg', reps: 8 },
+					{ id: 'set-2-1', weight: 80, reps: 8 },
+					{ id: 'set-2-2', weight: 80, reps: 8 },
+					{ id: 'set-2-3', weight: 80, reps: 8 },
 				],
 			},
 		],
@@ -60,7 +60,7 @@ const RoutineDetail = () => {
 			id: `workout-${Date.now()}`, // 고유 ID 생성
 			name: 'New Workout',
 			order: routineDetailData.workouts.length, // 마지막 순서로 추가
-			sets: [{ id: `set-${Date.now()}`, weight: '0kg', reps: 0 }],
+			sets: [{ id: `set-${Date.now()}`, weight: 0, reps: 0 }],
 		};
 
 		setRoutineDetailData((prev) => ({
@@ -78,7 +78,7 @@ const RoutineDetail = () => {
 	};
 
 	// 세트 무게 수정 함수
-	const handleUpdateSetWeight = (workoutId: string, setId: string, newWeight: string) => {
+	const handleUpdateSetWeight = (workoutId: string, setId: string, newWeight: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.map((workout) =>
@@ -134,38 +134,25 @@ const RoutineDetail = () => {
 								/>
 								<div>
 									{workout.sets.map((set) => (
-										<div key={set.id} style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px' }}>
-											<input
-												type="text"
-												value={set.weight}
-												onChange={(e) => handleUpdateSetWeight(workout.id, set.id, e.target.value)}
-												style={{
-													background: 'transparent',
-													border: '1px solid #2a3441',
-													borderRadius: '4px',
-													padding: '4px 8px',
-													color: 'white',
-													outline: 'none',
-													width: '80px',
-												}}
-											/>
+										<S.SetRow key={set.id}>
+											<S.WeightInputGroup>
+												<S.NumberInput
+													type="number"
+													value={set.weight}
+													onChange={(e) => handleUpdateSetWeight(workout.id, set.id, parseInt(e.target.value) || 0)}
+												/>
+												<span>weight</span>
+											</S.WeightInputGroup>
 											<span>×</span>
-											<input
-												type="number"
-												value={set.reps}
-												onChange={(e) => handleUpdateSetReps(workout.id, set.id, parseInt(e.target.value) || 0)}
-												style={{
-													background: 'transparent',
-													border: '1px solid #2a3441',
-													borderRadius: '4px',
-													padding: '4px 8px',
-													color: 'white',
-													outline: 'none',
-													width: '60px',
-												}}
-											/>
-											<span>reps</span>
-										</div>
+											<S.RepsInputGroup>
+												<S.NumberInput
+													type="number"
+													value={set.reps}
+													onChange={(e) => handleUpdateSetReps(workout.id, set.id, parseInt(e.target.value) || 0)}
+												/>
+												<span>reps</span>
+											</S.RepsInputGroup>
+										</S.SetRow>
 									))}
 								</div>
 							</S.WorkoutCard>
