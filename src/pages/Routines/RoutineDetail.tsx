@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import FormButton from '@/components/common/Form/FormButton/FormButton.tsx';
 
@@ -68,6 +68,36 @@ const RoutineDetail = () => {
 			workouts: [...prev.workouts, newWorkout],
 		}));
 	};
+	// Workout 삭제 함수
+	const handleDeleteWorkout = (workoutId: string) => {
+		setRoutineDetailData((prev) => ({
+			...prev,
+			workouts: prev.workouts.filter((workout) => workout.id !== workoutId),
+		}));
+	};
+
+	// 더보기 메뉴 상태
+	const [openMenuWorkoutId, setOpenMenuWorkoutId] = useState<string | null>(null);
+	const toggleMoreMenu = (workoutId: string) => {
+		setOpenMenuWorkoutId((prev) => (prev === workoutId ? null : workoutId));
+	};
+
+	// 외부 클릭 시 메뉴 닫기
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (openMenuWorkoutId) {
+				setOpenMenuWorkoutId(null);
+			}
+		};
+
+		if (openMenuWorkoutId) {
+			document.addEventListener('mousedown', handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, [openMenuWorkoutId]);
 
 	// 운동 이름 수정 함수
 	const handleUpdateWorkoutName = (workoutId: string, newName: string) => {
@@ -107,10 +137,30 @@ const RoutineDetail = () => {
 		}));
 	};
 
+	// 세트 추가 함수
+	const handleAddSet = (workoutId: string) => {
+		setRoutineDetailData((prev) => ({
+			...prev,
+			workouts: prev.workouts.map((workout) =>
+				workout.id === workoutId
+					? {
+							...workout,
+							sets: [...workout.sets, { id: `set-${Date.now()}`, weight: 0, reps: 0 }],
+						}
+					: workout
+			),
+		}));
+	};
+
 	return (
 		<S.RoutineDetailWrapper>
 			<S.InfoSection>
-				<S.RoutineTitle>{routineDetailData.routine_name}</S.RoutineTitle>
+				<S.InfoHeader>
+					<S.RoutineTitle>{routineDetailData.routine_name}</S.RoutineTitle>
+					<FormButton size="small" type="button">
+						Save
+					</FormButton>
+				</S.InfoHeader>
 			</S.InfoSection>
 			<S.WorkoutSection>
 				<S.WorkoutList>
@@ -118,20 +168,38 @@ const RoutineDetail = () => {
 						.sort((a, b) => a.order - b.order)
 						.map((workout) => (
 							<S.WorkoutCard key={workout.id}>
-								<input
-									type="text"
-									value={workout.name}
-									onChange={(e) => handleUpdateWorkoutName(workout.id, e.target.value)}
-									style={{
-										fontSize: '18px',
-										fontWeight: 'bold',
-										marginBottom: '12px',
-										background: 'transparent',
-										border: 'none',
-										color: 'white',
-										outline: 'none',
-									}}
-								/>
+								<S.WorkoutHeader>
+									<input
+										type="text"
+										value={workout.name}
+										onChange={(e) => handleUpdateWorkoutName(workout.id, e.target.value)}
+										style={{
+											fontSize: '18px',
+											fontWeight: 'bold',
+											background: 'transparent',
+											border: 'none',
+											color: 'white',
+											outline: 'none',
+										}}
+									/>
+									<S.MoreButton aria-label="More options" onClick={() => toggleMoreMenu(workout.id)}>
+										⋯
+									</S.MoreButton>
+									{openMenuWorkoutId === workout.id && (
+										<S.MoreMenu>
+											<S.MoreMenuList>
+												<S.MoreMenuItem>
+													<button type="button">Add note</button>
+												</S.MoreMenuItem>
+												<S.MoreMenuItem>
+													<button type="button" onClick={() => handleDeleteWorkout(workout.id)}>
+														Delete workout
+													</button>
+												</S.MoreMenuItem>
+											</S.MoreMenuList>
+										</S.MoreMenu>
+									)}
+								</S.WorkoutHeader>
 								<div>
 									{workout.sets.map((set) => (
 										<S.SetRow key={set.id}>
@@ -155,6 +223,9 @@ const RoutineDetail = () => {
 										</S.SetRow>
 									))}
 								</div>
+								<FormButton variant="tertiary" size="thin" type="button" fullWidth onClick={() => handleAddSet(workout.id)}>
+									Add set
+								</FormButton>
 							</S.WorkoutCard>
 						))}
 				</S.WorkoutList>

@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import logoSvg from '@/assets/logo.svg';
-import MenuIcon from '@/components/Icon/MenuIcon';
-import UserIcon from '@/components/Icon/UserIcon';
-import { menuList } from '@/constants/menu';
-import { useAuthStore } from '@/store/authStore';
 import { useTokenStore } from '@/store/tokenStore';
 
 import * as Styled from './style';
@@ -15,7 +11,6 @@ const Header = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
 	const navigate = useNavigate();
-	const location = useLocation();
 
 	const onClickMenuOpen = () => {
 		setIsOpen(!isOpen);
@@ -40,11 +35,7 @@ const Header = () => {
 									<Styled.SignInButton onClick={() => navigate('/auth')}>Sign in</Styled.SignInButton>
 									<Styled.SignUpButton onClick={() => navigate('/auth/sign-up')}>Sign up</Styled.SignUpButton>
 								</>
-							) : (
-								<Styled.UserButton onClick={() => navigate('/profile')}>
-									<UserIcon />
-								</Styled.UserButton>
-							)}
+							) : null}
 						</Styled.HeaderActions>
 					</Styled.Nav>
 				</div>

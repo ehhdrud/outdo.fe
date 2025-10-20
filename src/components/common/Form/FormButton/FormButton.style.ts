@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
 interface ButtonProps {
-	variant: 'primary' | 'secondary' | 'outline';
-	size: 'small' | 'medium' | 'large';
+	variant: 'primary' | 'secondary' | 'tertiary' | 'outline';
+	size: 'thin' | 'small' | 'medium' | 'large';
 	fullWidth: boolean;
 }
 
@@ -17,7 +17,6 @@ const getVariantStyles = (variant: string) => {
 				&:hover:not(:disabled) {
 					background: #1c6cd9;
 					border-color: #1c6cd9;
-					transform: translateY(-1px);
 				}
 
 				@media (hover: none) {
@@ -36,7 +35,6 @@ const getVariantStyles = (variant: string) => {
 				&:hover:not(:disabled) {
 					background: rgba(255, 255, 255, 0.12);
 					border-color: rgba(255, 255, 255, 0.18);
-					transform: translateY(-1px);
 				}
 
 				@media (hover: none) {
@@ -55,13 +53,29 @@ const getVariantStyles = (variant: string) => {
 				&:hover:not(:disabled) {
 					background: rgba(255, 255, 255, 0.08);
 					border-color: rgba(255, 255, 255, 0.18);
-					transform: translateY(-1px);
 				}
 
 				@media (hover: none) {
 					&:active:not(:disabled) {
 						transform: none;
 						background: rgba(255, 255, 255, 0.03);
+					}
+				}
+			`;
+		case 'tertiary':
+			return `
+				background: rgba(47, 129, 247, 0.14);
+				border: 1px solid rgba(47, 129, 247, 0.28);
+				color: #d9e7ff;
+
+				&:hover:not(:disabled) {
+					background: rgba(47, 129, 247, 0.18);
+					border-color: rgba(47, 129, 247, 0.36);
+				}
+
+				@media (hover: none) {
+					&:active:not(:disabled) {
+						background: rgba(47, 129, 247, 0.18);
 					}
 				}
 			`;
@@ -72,6 +86,12 @@ const getVariantStyles = (variant: string) => {
 
 const getSizeStyles = (size: string) => {
 	switch (size) {
+		case 'thin':
+			return `
+				font-size: 12px;
+				font-weight: 600;
+				padding: 5px 10px;
+			`;
 		case 'small':
 			return `
 				font-size: 13px;
