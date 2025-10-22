@@ -8,7 +8,19 @@ export const RoutineDetailWrapper = styled.div`
 `;
 
 export const InfoSection = styled.div`
-	/* 간단한 정보를 담는 공간 */
+	position: sticky;
+	top: -20px;
+	z-index: 10;
+	background: rgba(22, 27, 34, 0.5);
+	backdrop-filter: blur(10px);
+	padding: 16px 0;
+	margin: -20px -20px 0px -20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	box-shadow:
+		0 12px 48px rgba(0, 0, 0, 1),
+		0 8px 24px rgba(0, 0, 0, 0.3),
+		0 4px 16px rgba(0, 0, 0, 0.2);
 `;
 
 export const InfoHeader = styled.div`
@@ -23,6 +35,7 @@ export const RoutineTitle = styled.h3`
 
 export const WorkoutSection = styled.div`
 	/* workout이 추가되고 삭제되며 관리되는 공간 */
+	margin-top: 8px;
 `;
 
 export const WorkoutCard = styled.div`

@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import AuthLayout from '@/components/Layout/AuthLayout';
 import DefaultLayout from '@/components/Layout/Layout';
+import NoHeaderLayout from '@/components/Layout/NoHeaderLayout';
 import FindPassword from '@/pages/Auth/FindPassword/FindPassword';
 import Signin from '@/pages/Auth/Signin/Signin';
 import Signup from '@/pages/Auth/Signup/Signup';
@@ -17,10 +18,13 @@ const router = createBrowserRouter([
 		children: [
 			{ path: '/', element: <Dashboard /> },
 			{ path: '/routines', element: <Routines /> },
-			{ path: '/routines/:id', element: <RoutineDetail /> },
 			{ path: '/profile', element: <Profile /> },
 			{ path: '/profile/change-password', element: <ChangePassword /> },
 		],
+	},
+	{
+		element: <NoHeaderLayout />,
+		children: [{ path: '/routines/:id', element: <RoutineDetail /> }],
 	},
 	{
 		element: <AuthLayout />,

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import FormButton from '@/components/common/Form/FormButton/FormButton.tsx';
 
+import NoteModal from './NoteModal';
 import * as S from './RoutineDetail.style.ts';
 
 // 각 세트의 상세 정보
@@ -74,6 +75,7 @@ const RoutineDetail = () => {
 			...prev,
 			workouts: prev.workouts.filter((workout) => workout.id !== workoutId),
 		}));
+		setOpenMenuWorkoutId(null); // 더보기 메뉴 닫기
 	};
 
 	// 더보기 메뉴 상태
@@ -82,11 +84,19 @@ const RoutineDetail = () => {
 		setOpenMenuWorkoutId((prev) => (prev === workoutId ? null : workoutId));
 	};
 
+	// 메모 모달 상태
+	const [noteModalOpen, setNoteModalOpen] = useState(false);
+	const [selectedWorkoutId, setSelectedWorkoutId] = useState<string | null>(null);
+
 	// 외부 클릭 시 메뉴 닫기
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (openMenuWorkoutId) {
-				setOpenMenuWorkoutId(null);
+				const target = event.target as HTMLElement;
+				// 메뉴 내부 클릭은 무시
+				if (!target.closest('[data-more-menu]')) {
+					setOpenMenuWorkoutId(null);
+				}
 			}
 		};
 
@@ -152,6 +162,23 @@ const RoutineDetail = () => {
 		}));
 	};
 
+	// 메모 모달 열기 함수
+	const handleOpenNoteModal = (workoutId: string) => {
+		setSelectedWorkoutId(workoutId);
+		setNoteModalOpen(true);
+		setOpenMenuWorkoutId(null); // 더보기 메뉴 닫기
+	};
+
+	// 메모 저장 함수
+	const handleSaveNote = (note: string) => {
+		if (selectedWorkoutId) {
+			setRoutineDetailData((prev) => ({
+				...prev,
+				workouts: prev.workouts.map((workout) => (workout.id === selectedWorkoutId ? { ...workout, notes: note } : workout)),
+			}));
+		}
+	};
+
 	return (
 		<S.RoutineDetailWrapper>
 			<S.InfoSection>
@@ -186,10 +213,12 @@ const RoutineDetail = () => {
 										⋯
 									</S.MoreButton>
 									{openMenuWorkoutId === workout.id && (
-										<S.MoreMenu>
+										<S.MoreMenu data-more-menu>
 											<S.MoreMenuList>
 												<S.MoreMenuItem>
-													<button type="button">Add note</button>
+													<button type="button" onClick={() => handleOpenNoteModal(workout.id)}>
+														Add note
+													</button>
 												</S.MoreMenuItem>
 												<S.MoreMenuItem>
 													<button type="button" onClick={() => handleDeleteWorkout(workout.id)}>
@@ -238,6 +267,13 @@ const RoutineDetail = () => {
 					Cancel routine
 				</FormButton>
 			</S.ButtonWrapper>
+			<NoteModal
+				isOpen={noteModalOpen}
+				onClose={() => setNoteModalOpen(false)}
+				onSave={handleSaveNote}
+				initialNote={selectedWorkoutId ? routineDetailData.workouts.find((w) => w.id === selectedWorkoutId)?.notes || '' : ''}
+				workoutName={selectedWorkoutId ? routineDetailData.workouts.find((w) => w.id === selectedWorkoutId)?.name || '' : ''}
+			/>
 		</S.RoutineDetailWrapper>
 	);
 };
