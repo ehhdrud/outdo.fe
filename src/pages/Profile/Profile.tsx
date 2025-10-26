@@ -4,16 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import FormButton from '@/components/common/Form/FormButton/FormButton';
 import FormInput from '@/components/common/Form/FormInput/FormInput';
 import FormTextArea from '@/components/common/Form/FormTextArea/FormTextArea';
+import { mockProfileData } from '@/data/mockProfileData';
 
 import * as S from './Profile.style';
 
 const Profile = () => {
 	const navigate = useNavigate();
-	const [formData, setFormData] = useState({
-		name: 'Denny',
-		email: 'denny@example.com',
-		bio: 'Developer who loves gym',
-	});
+	const [formData, setFormData] = useState(mockProfileData);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

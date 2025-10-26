@@ -100,3 +100,73 @@ export const WorkoutMeta = styled.div`
 	gap: 6px;
 	align-items: center;
 `;
+
+export const AddRoutineIcon = styled.span`
+	font-size: 32px;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 0.5);
+	transition: all 0.3s ease;
+	line-height: 1;
+`;
+
+export const AddRoutineText = styled.span`
+	font-size: ${({ theme }) => theme.fontSize.sizeMd};
+	font-weight: ${({ theme }) => theme.fontWeight.weightSemi};
+	color: rgba(255, 255, 255, 0.6);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	transition: all 0.3s ease;
+`;
+
+export const AddRoutineContent = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+`;
+
+export const AddRoutineButton = styled.div`
+	background: linear-gradient(135deg, #1a1f2e 0%, #1e2332 100%);
+	border: 2px dashed #2a3441;
+	border-radius: 8px;
+	padding: 32px 16px;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	cursor: pointer;
+	outline: none;
+	position: relative;
+	overflow: hidden;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&:hover,
+	&:focus {
+		background: linear-gradient(135deg, #1e2436 0%, #22273a 100%);
+		border-color: #3a4553;
+		transform: translateY(-2px);
+		box-shadow:
+			0 8px 25px rgba(26, 31, 46, 0.4),
+			0 3px 10px rgba(47, 129, 247, 0.1);
+
+		${AddRoutineIcon} {
+			color: #2f81f7;
+			transform: scale(1.1);
+		}
+
+		${AddRoutineText} {
+			color: #2f81f7;
+		}
+	}
+
+	&:focus {
+		box-shadow:
+			0 8px 25px rgba(26, 31, 46, 0.4),
+			0 0 0 3px rgba(47, 129, 247, 0.3);
+	}
+`;

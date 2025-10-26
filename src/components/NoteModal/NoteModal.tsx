@@ -43,13 +43,7 @@ const NoteModal = ({ isOpen, onClose, onSave, initialNote = '', workoutName }: N
 						<S.CloseButton onClick={handleClose}>×</S.CloseButton>
 					</S.ModalHeader>
 					<S.ModalBody>
-						<FormTextArea
-							label="Workout Notes"
-							value={note}
-							onChange={(e) => setNote(e.target.value)}
-							placeholder="Enter your workout notes here..."
-							rows={6}
-						/>
+						<FormTextArea label="" value={note} onChange={(e) => setNote(e.target.value)} placeholder="Enter your workout notes here..." rows={6} />
 					</S.ModalBody>
 					<S.ModalFooter>
 						<FormButton variant="secondary" size="small" onClick={handleClose}>

@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-import { colors } from '@/styles/color';
-
 export const SectionContainer = styled.div`
 	width: 100%;
 	padding: 20px;

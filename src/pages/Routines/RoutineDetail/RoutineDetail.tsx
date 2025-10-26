@@ -1,65 +1,41 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import FormButton from '@/components/common/Form/FormButton/FormButton.tsx';
+import NoteModal from '@/components/NoteModal/NoteModal';
+import { mockRoutineDetailData, RoutineDetailData, Workout } from '@/data/mockRoutineDetailData';
 
-import NoteModal from './NoteModal';
 import * as S from './RoutineDetail.style.ts';
 
-// 각 세트의 상세 정보
-interface WorkoutSet {
-	id: string; // 고유 식별자 (드래그 앤 드롭 시 필요)
-	weight: number; // 무게 (숫자만)
-	reps: number; // 반복 횟수
-	completed?: boolean; // 완료 여부 (선택사항)
-}
-
-// 각 운동의 정보
-interface Workout {
-	id: string; // 고유 식별자 (드래그 앤 드롭으로 순서 변경 시 필수)
-	name: string; // 운동 이름
-	sets: WorkoutSet[]; // 세트 배열
-	order: number; // 정렬 순서 (드래그 앤 드롭 후 순서 유지)
-	notes?: string; // 메모 (선택사항)
-}
-
-// 루틴 전체 데이터
-interface RoutineDetailData {
-	routine_name: string;
-	workouts: Workout[]; // 운동 배열
-}
-
 const RoutineDetail = () => {
-	const [routineDetailData, setRoutineDetailData] = useState<RoutineDetailData>({
-		routine_name: 'Leg',
-		workouts: [
-			{
-				id: 'workout-1',
-				name: 'leg press',
-				order: 0,
-				sets: [
-					{ id: 'set-1-1', weight: 100, reps: 10 },
-					{ id: 'set-1-2', weight: 100, reps: 10 },
-					{ id: 'set-1-3', weight: 100, reps: 10 },
+	const { id } = useParams<{ id: string }>();
+
+	// Create initial data based on route
+	const getInitialData = (): RoutineDetailData => {
+		if (id === 'new') {
+			return {
+				routine_pk: Date.now(),
+				routine_name: 'new workout',
+				workouts: [
+					{
+						workout_pk: `workout-${Date.now()}`,
+						workout_name: 'New Workout',
+						order: 0,
+						sets: [{ id: `set-${Date.now()}`, weight: 0, reps: 0 }],
+					},
 				],
-			},
-			{
-				id: 'workout-2',
-				name: 'squat',
-				order: 1,
-				sets: [
-					{ id: 'set-2-1', weight: 80, reps: 8 },
-					{ id: 'set-2-2', weight: 80, reps: 8 },
-					{ id: 'set-2-3', weight: 80, reps: 8 },
-				],
-			},
-		],
-	});
+			};
+		}
+		return mockRoutineDetailData;
+	};
+
+	const [routineDetailData, setRoutineDetailData] = useState<RoutineDetailData>(getInitialData());
 
 	// 새로운 운동 추가 함수
 	const handleAddWorkout = () => {
 		const newWorkout: Workout = {
-			id: `workout-${Date.now()}`, // 고유 ID 생성
-			name: 'New Workout',
+			workout_pk: `workout-${Date.now()}`, // 고유 ID 생성
+			workout_name: 'New Workout',
 			order: routineDetailData.workouts.length, // 마지막 순서로 추가
 			sets: [{ id: `set-${Date.now()}`, weight: 0, reps: 0 }],
 		};
@@ -73,7 +49,7 @@ const RoutineDetail = () => {
 	const handleDeleteWorkout = (workoutId: string) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
-			workouts: prev.workouts.filter((workout) => workout.id !== workoutId),
+			workouts: prev.workouts.filter((workout) => workout.workout_pk !== workoutId),
 		}));
 		setOpenMenuWorkoutId(null); // 더보기 메뉴 닫기
 	};
@@ -113,7 +89,7 @@ const RoutineDetail = () => {
 	const handleUpdateWorkoutName = (workoutId: string, newName: string) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
-			workouts: prev.workouts.map((workout) => (workout.id === workoutId ? { ...workout, name: newName } : workout)),
+			workouts: prev.workouts.map((workout) => (workout.workout_pk === workoutId ? { ...workout, workout_name: newName } : workout)),
 		}));
 	};
 
@@ -122,7 +98,7 @@ const RoutineDetail = () => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.map((workout) =>
-				workout.id === workoutId
+				workout.workout_pk === workoutId
 					? {
 							...workout,
 							sets: workout.sets.map((set) => (set.id === setId ? { ...set, weight: newWeight } : set)),
@@ -137,7 +113,7 @@ const RoutineDetail = () => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.map((workout) =>
-				workout.id === workoutId
+				workout.workout_pk === workoutId
 					? {
 							...workout,
 							sets: workout.sets.map((set) => (set.id === setId ? { ...set, reps: newReps } : set)),
@@ -152,7 +128,7 @@ const RoutineDetail = () => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.map((workout) =>
-				workout.id === workoutId
+				workout.workout_pk === workoutId
 					? {
 							...workout,
 							sets: [...workout.sets, { id: `set-${Date.now()}`, weight: 0, reps: 0 }],
@@ -174,7 +150,7 @@ const RoutineDetail = () => {
 		if (selectedWorkoutId) {
 			setRoutineDetailData((prev) => ({
 				...prev,
-				workouts: prev.workouts.map((workout) => (workout.id === selectedWorkoutId ? { ...workout, notes: note } : workout)),
+				workouts: prev.workouts.map((workout) => (workout.workout_pk === selectedWorkoutId ? { ...workout, notes: note } : workout)),
 			}));
 		}
 	};
@@ -194,12 +170,12 @@ const RoutineDetail = () => {
 					{routineDetailData.workouts
 						.sort((a, b) => a.order - b.order)
 						.map((workout) => (
-							<S.WorkoutCard key={workout.id}>
+							<S.WorkoutCard key={workout.workout_pk}>
 								<S.WorkoutHeader>
 									<input
 										type="text"
-										value={workout.name}
-										onChange={(e) => handleUpdateWorkoutName(workout.id, e.target.value)}
+										value={workout.workout_name}
+										onChange={(e) => handleUpdateWorkoutName(workout.workout_pk, e.target.value)}
 										style={{
 											fontSize: '18px',
 											fontWeight: 'bold',
@@ -209,19 +185,19 @@ const RoutineDetail = () => {
 											outline: 'none',
 										}}
 									/>
-									<S.MoreButton aria-label="More options" onClick={() => toggleMoreMenu(workout.id)}>
+									<S.MoreButton aria-label="More options" onClick={() => toggleMoreMenu(workout.workout_pk)}>
 										⋯
 									</S.MoreButton>
-									{openMenuWorkoutId === workout.id && (
+									{openMenuWorkoutId === workout.workout_pk && (
 										<S.MoreMenu data-more-menu>
 											<S.MoreMenuList>
 												<S.MoreMenuItem>
-													<button type="button" onClick={() => handleOpenNoteModal(workout.id)}>
-														Add note
+													<button type="button" onClick={() => handleOpenNoteModal(workout.workout_pk)}>
+														Note
 													</button>
 												</S.MoreMenuItem>
 												<S.MoreMenuItem>
-													<button type="button" onClick={() => handleDeleteWorkout(workout.id)}>
+													<button type="button" onClick={() => handleDeleteWorkout(workout.workout_pk)}>
 														Delete workout
 													</button>
 												</S.MoreMenuItem>
@@ -236,7 +212,7 @@ const RoutineDetail = () => {
 												<S.NumberInput
 													type="number"
 													value={set.weight}
-													onChange={(e) => handleUpdateSetWeight(workout.id, set.id, parseInt(e.target.value) || 0)}
+													onChange={(e) => handleUpdateSetWeight(workout.workout_pk, set.id, parseInt(e.target.value) || 0)}
 												/>
 												<span>weight</span>
 											</S.WeightInputGroup>
@@ -245,14 +221,14 @@ const RoutineDetail = () => {
 												<S.NumberInput
 													type="number"
 													value={set.reps}
-													onChange={(e) => handleUpdateSetReps(workout.id, set.id, parseInt(e.target.value) || 0)}
+													onChange={(e) => handleUpdateSetReps(workout.workout_pk, set.id, parseInt(e.target.value) || 0)}
 												/>
 												<span>reps</span>
 											</S.RepsInputGroup>
 										</S.SetRow>
 									))}
 								</div>
-								<FormButton variant="tertiary" size="thin" type="button" fullWidth onClick={() => handleAddSet(workout.id)}>
+								<FormButton variant="tertiary" size="thin" type="button" fullWidth onClick={() => handleAddSet(workout.workout_pk)}>
 									Add set
 								</FormButton>
 							</S.WorkoutCard>
@@ -271,8 +247,8 @@ const RoutineDetail = () => {
 				isOpen={noteModalOpen}
 				onClose={() => setNoteModalOpen(false)}
 				onSave={handleSaveNote}
-				initialNote={selectedWorkoutId ? routineDetailData.workouts.find((w) => w.id === selectedWorkoutId)?.notes || '' : ''}
-				workoutName={selectedWorkoutId ? routineDetailData.workouts.find((w) => w.id === selectedWorkoutId)?.name || '' : ''}
+				initialNote={selectedWorkoutId ? routineDetailData.workouts.find((w) => w.workout_pk === selectedWorkoutId)?.notes || '' : ''}
+				workoutName={selectedWorkoutId ? routineDetailData.workouts.find((w) => w.workout_pk === selectedWorkoutId)?.workout_name || '' : ''}
 			/>
 		</S.RoutineDetailWrapper>
 	);

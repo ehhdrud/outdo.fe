@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mockActivityLevels, mockSummaryData } from '@/data/mockSummaryData';
+import { mockActivityLevels, mockDashboardData } from '@/data/mockDashboardData';
 
 import * as S from './SummaryChart.style';
 
@@ -11,7 +11,7 @@ interface SummaryChartProps {
 
 const SummaryChart: React.FC<SummaryChartProps> = ({ data, showDebugInfo = false }) => {
 	const chartData = data ? [...data].reverse() : [...mockActivityLevels].reverse();
-	const reversedSummaryData = [...mockSummaryData].reverse();
+	const reversedSummaryData = [...mockDashboardData].reverse();
 	const weekLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 	const activityStats = chartData.reduce(
@@ -49,8 +49,8 @@ const SummaryChart: React.FC<SummaryChartProps> = ({ data, showDebugInfo = false
 					<p style={{ margin: '4px 0' }}>비활성 (0): {activityStats[0]}개</p>
 					<p style={{ margin: '4px 0' }}>낮은 활동 (1): {activityStats[1]}개</p>
 					<p style={{ margin: '4px 0' }}>높은 활동 (2): {activityStats[2]}개</p>
-					<p style={{ margin: '4px 0' }}>최신 날짜: {mockSummaryData[0]?.date}</p>
-					<p style={{ margin: '4px 0' }}>가장 오래된 날짜: {mockSummaryData[181]?.date}</p>
+					<p style={{ margin: '4px 0' }}>최신 날짜: {mockDashboardData[0]?.date}</p>
+					<p style={{ margin: '4px 0' }}>가장 오래된 날짜: {mockDashboardData[181]?.date}</p>
 				</div>
 			)}
 		</div>

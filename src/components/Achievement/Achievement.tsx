@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mockSummaryData } from '@/data/mockSummaryData';
+import { mockDashboardData } from '@/data/mockDashboardData';
 
 import * as S from './Achievement.style';
 
@@ -11,7 +11,7 @@ interface AchievementData {
 }
 
 const Achievement: React.FC = () => {
-	const recentAchievements: AchievementData[] = mockSummaryData
+	const recentAchievements: AchievementData[] = mockDashboardData
 		.filter((day) => day.achievement !== null && day.routine !== null)
 		.slice(0, 5)
 		.map((day) => ({

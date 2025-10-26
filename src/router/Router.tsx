@@ -9,7 +9,7 @@ import Signup from '@/pages/Auth/Signup/Signup';
 import ChangePassword from '@/pages/ChangePassword/ChangePassword';
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import Profile from '@/pages/Profile/Profile';
-import RoutineDetail from '@/pages/Routines/RoutineDetail';
+import RoutineDetail from '@/pages/Routines/RoutineDetail/RoutineDetail';
 import Routines from '@/pages/Routines/Routines';
 
 const router = createBrowserRouter([

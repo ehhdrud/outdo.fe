@@ -5,7 +5,7 @@ export interface DayActivity {
 	achievement: string | null;
 }
 
-export const generateMockSummaryData = (customDays?: number): DayActivity[] => {
+export const generateMockDashboardData = (customDays?: number): DayActivity[] => {
 	const today = new Date();
 
 	const dayOfWeek = today.getDay();
@@ -20,7 +20,7 @@ export const generateMockSummaryData = (customDays?: number): DayActivity[] => {
 
 		const activity = Math.floor(Math.random() * 3);
 		const routine = activity === 0 ? null : routines[Math.floor(Math.random() * routines.length)];
-		const achievement = activity === 2 ? `+${Math.floor(Math.random() * 50) + 1}kg` : null;
+		const achievement = activity === 2 ? `+${Math.floor(Math.random() * 50) + 1} weight` : null;
 
 		result.push({
 			date: date.toISOString().split('T')[0],
@@ -33,6 +33,6 @@ export const generateMockSummaryData = (customDays?: number): DayActivity[] => {
 	return result;
 };
 
-export const mockSummaryData = generateMockSummaryData();
+export const mockDashboardData = generateMockDashboardData();
 
-export const mockActivityLevels = mockSummaryData.map((day) => day.activity);
+export const mockActivityLevels = mockDashboardData.map((day) => day.activity);

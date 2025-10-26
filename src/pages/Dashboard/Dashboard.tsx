@@ -4,19 +4,15 @@ import SummaryChart from '@/components/SummaryChart/SummaryChart';
 
 import * as S from './Dashboard.style.ts';
 
-const Dashboard = () => {
-	const example = () => {};
-
-	return (
-		<S.DashboardWrapper>
-			<LayoutSection title="Summary">
-				<SummaryChart />
-			</LayoutSection>
-			<LayoutSection title="Achievement">
-				<Achievement />
-			</LayoutSection>
-		</S.DashboardWrapper>
-	);
-};
+const Dashboard = () => (
+	<S.DashboardWrapper>
+		<LayoutSection title="Summary">
+			<SummaryChart />
+		</LayoutSection>
+		<LayoutSection title="Achievement">
+			<Achievement />
+		</LayoutSection>
+	</S.DashboardWrapper>
+);
 
 export default Dashboard;
