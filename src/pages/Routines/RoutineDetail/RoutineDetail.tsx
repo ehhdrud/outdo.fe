@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import FormButton from '@/components/common/Form/FormButton/FormButton.tsx';
 import NoteModal from '@/components/NoteModal/NoteModal';
-import { mockRoutineDetailData, RoutineDetailData, Workout } from '@/data/mockRoutineDetailData';
+import { mockRoutineDetailData, RoutineDetailData, RoutineWorkoutDetail } from '@/data/mockRoutineDetailData';
 
 import * as S from './RoutineDetail.style.ts';
 
@@ -18,10 +18,10 @@ const RoutineDetail = () => {
 				routine_name: 'new workout',
 				workouts: [
 					{
-						workout_pk: `workout-${Date.now()}`,
+						workout_pk: Date.now(),
 						workout_name: 'New Workout',
 						order: 0,
-						sets: [{ id: `set-${Date.now()}`, weight: 0, reps: 0 }],
+						sets: [{ set_pk: Date.now(), weight: 0, reps: 0 }],
 					},
 				],
 			};
@@ -33,11 +33,11 @@ const RoutineDetail = () => {
 
 	// 새로운 운동 추가 함수
 	const handleAddWorkout = () => {
-		const newWorkout: Workout = {
-			workout_pk: `workout-${Date.now()}`, // 고유 ID 생성
+		const newWorkout: RoutineWorkoutDetail = {
+			workout_pk: Date.now(), // 고유 ID 생성
 			workout_name: 'New Workout',
 			order: routineDetailData.workouts.length, // 마지막 순서로 추가
-			sets: [{ id: `set-${Date.now()}`, weight: 0, reps: 0 }],
+			sets: [{ set_pk: Date.now(), weight: 0, reps: 0 }],
 		};
 
 		setRoutineDetailData((prev) => ({
@@ -46,7 +46,7 @@ const RoutineDetail = () => {
 		}));
 	};
 	// Workout 삭제 함수
-	const handleDeleteWorkout = (workoutId: string) => {
+	const handleDeleteWorkout = (workoutId: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.filter((workout) => workout.workout_pk !== workoutId),
@@ -55,14 +55,14 @@ const RoutineDetail = () => {
 	};
 
 	// 더보기 메뉴 상태
-	const [openMenuWorkoutId, setOpenMenuWorkoutId] = useState<string | null>(null);
-	const toggleMoreMenu = (workoutId: string) => {
+	const [openMenuWorkoutId, setOpenMenuWorkoutId] = useState<number | null>(null);
+	const toggleMoreMenu = (workoutId: number) => {
 		setOpenMenuWorkoutId((prev) => (prev === workoutId ? null : workoutId));
 	};
 
 	// 메모 모달 상태
 	const [noteModalOpen, setNoteModalOpen] = useState(false);
-	const [selectedWorkoutId, setSelectedWorkoutId] = useState<string | null>(null);
+	const [selectedWorkoutId, setSelectedWorkoutId] = useState<number | null>(null);
 
 	// 외부 클릭 시 메뉴 닫기
 	useEffect(() => {
@@ -86,7 +86,7 @@ const RoutineDetail = () => {
 	}, [openMenuWorkoutId]);
 
 	// 운동 이름 수정 함수
-	const handleUpdateWorkoutName = (workoutId: string, newName: string) => {
+	const handleUpdateWorkoutName = (workoutId: number, newName: string) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.map((workout) => (workout.workout_pk === workoutId ? { ...workout, workout_name: newName } : workout)),
@@ -94,14 +94,14 @@ const RoutineDetail = () => {
 	};
 
 	// 세트 무게 수정 함수
-	const handleUpdateSetWeight = (workoutId: string, setId: string, newWeight: number) => {
+	const handleUpdateSetWeight = (workoutId: number, setId: number, newWeight: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.map((workout) =>
 				workout.workout_pk === workoutId
 					? {
 							...workout,
-							sets: workout.sets.map((set) => (set.id === setId ? { ...set, weight: newWeight } : set)),
+							sets: workout.sets.map((set) => (set.set_pk === setId ? { ...set, weight: newWeight } : set)),
 						}
 					: workout
 			),
@@ -109,14 +109,14 @@ const RoutineDetail = () => {
 	};
 
 	// 세트 반복 횟수 수정 함수
-	const handleUpdateSetReps = (workoutId: string, setId: string, newReps: number) => {
+	const handleUpdateSetReps = (workoutId: number, setId: number, newReps: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.map((workout) =>
 				workout.workout_pk === workoutId
 					? {
 							...workout,
-							sets: workout.sets.map((set) => (set.id === setId ? { ...set, reps: newReps } : set)),
+							sets: workout.sets.map((set) => (set.set_pk === setId ? { ...set, reps: newReps } : set)),
 						}
 					: workout
 			),
@@ -124,14 +124,14 @@ const RoutineDetail = () => {
 	};
 
 	// 세트 추가 함수
-	const handleAddSet = (workoutId: string) => {
+	const handleAddSet = (workoutId: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.map((workout) =>
 				workout.workout_pk === workoutId
 					? {
 							...workout,
-							sets: [...workout.sets, { id: `set-${Date.now()}`, weight: 0, reps: 0 }],
+							sets: [...workout.sets, { set_pk: Date.now(), weight: 0, reps: 0 }],
 						}
 					: workout
 			),
@@ -139,7 +139,7 @@ const RoutineDetail = () => {
 	};
 
 	// 메모 모달 열기 함수
-	const handleOpenNoteModal = (workoutId: string) => {
+	const handleOpenNoteModal = (workoutId: number) => {
 		setSelectedWorkoutId(workoutId);
 		setNoteModalOpen(true);
 		setOpenMenuWorkoutId(null); // 더보기 메뉴 닫기
@@ -207,12 +207,12 @@ const RoutineDetail = () => {
 								</S.WorkoutHeader>
 								<div>
 									{workout.sets.map((set) => (
-										<S.SetRow key={set.id}>
+										<S.SetRow key={set.set_pk}>
 											<S.WeightInputGroup>
 												<S.NumberInput
 													type="number"
 													value={set.weight}
-													onChange={(e) => handleUpdateSetWeight(workout.workout_pk, set.id, parseInt(e.target.value) || 0)}
+													onChange={(e) => handleUpdateSetWeight(workout.workout_pk, set.set_pk, parseInt(e.target.value) || 0)}
 												/>
 												<span>weight</span>
 											</S.WeightInputGroup>
@@ -221,7 +221,7 @@ const RoutineDetail = () => {
 												<S.NumberInput
 													type="number"
 													value={set.reps}
-													onChange={(e) => handleUpdateSetReps(workout.workout_pk, set.id, parseInt(e.target.value) || 0)}
+													onChange={(e) => handleUpdateSetReps(workout.workout_pk, set.set_pk, parseInt(e.target.value) || 0)}
 												/>
 												<span>reps</span>
 											</S.RepsInputGroup>

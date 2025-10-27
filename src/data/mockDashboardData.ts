@@ -1,8 +1,8 @@
 export interface DayActivity {
 	date: string;
 	activity: number;
-	routine: string | null;
-	achievement: string | null;
+	routine_name: string | null;
+	achievement: number | null; // 무게 증가량 (숫자)
 }
 
 export const generateMockDashboardData = (customDays?: number): DayActivity[] => {
@@ -19,13 +19,13 @@ export const generateMockDashboardData = (customDays?: number): DayActivity[] =>
 		date.setDate(today.getDate() - i);
 
 		const activity = Math.floor(Math.random() * 3);
-		const routine = activity === 0 ? null : routines[Math.floor(Math.random() * routines.length)];
-		const achievement = activity === 2 ? `+${Math.floor(Math.random() * 50) + 1} weight` : null;
+		const routine_name = activity === 0 ? null : routines[Math.floor(Math.random() * routines.length)];
+		const achievement = activity === 2 ? Math.floor(Math.random() * 50) + 1 : null;
 
 		result.push({
 			date: date.toISOString().split('T')[0],
 			activity,
-			routine,
+			routine_name,
 			achievement,
 		});
 	}

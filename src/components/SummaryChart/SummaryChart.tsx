@@ -34,8 +34,8 @@ const SummaryChart: React.FC<SummaryChartProps> = ({ data, showDebugInfo = false
 				<S.GridContainer>
 					{chartData.map((dayValue, index) => {
 						const dayData = reversedSummaryData[index];
-						const baseTitle = `${dayData?.date || `Day ${index + 1}`}, Routine: ${dayData?.routine || 'Rest'}`;
-						const achievementText = dayData?.achievement ? `, Achievement: ${dayData.achievement}` : '';
+						const baseTitle = `${dayData?.date || `Day ${index + 1}`}, Routine: ${dayData?.routine_name || 'Rest'}`;
+						const achievementText = dayData?.achievement ? `, Achievement: +${dayData.achievement} weight` : '';
 
 						return <S.DaySquare key={index} $activity={dayValue} title={baseTitle + achievementText} />;
 					})}

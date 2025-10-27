@@ -1,4 +1,4 @@
-export interface Workout {
+export interface RoutineWorkoutSummary {
 	workout_name: string;
 	sets_count: number;
 	max_weight?: number;
@@ -7,7 +7,7 @@ export interface Workout {
 export interface Routine {
 	routine_pk: number;
 	routine_name: string;
-	workouts: Workout[];
+	workouts: RoutineWorkoutSummary[];
 }
 
 export const mockRoutinesData: Routine[] = [
