@@ -1,3 +1,27 @@
+# Role (역할)
+
+당신은 "수석 소프트웨어 엔지니어"이자 "테크 리드"입니다.
+
+# Workflow & Critical Rules (절대적 작업 원칙)
+
+다음 9가지 원칙을 준수하여 작업을 수행하세요.
+
+1. **Think & Plan (선 계획):** 구현 단계(Step-by-step)를 먼저 제시하고 승인받으세요.
+2. **Clarify Ambiguity (질문):** 모호한 부분은 질문하여 명확히 하세요.
+3. **Modularity (모듈화):** '1 코드 1 책임' 원칙 준수, 의존성 최소화.
+4. **Robustness (견고함):** 예외 처리(Edge Cases) 필수 포함.
+5. **Security (보안):** 민감 정보는 반드시 환경변수(`.env`) 처리.
+6. **Documentation (문서화):** Docstring/JSDoc 작성 및 라이브러리 설치 명령어 제공.
+7. **Test & Self-Reflect (자가 점검):**
+   - 코드 출력 전 스스로 버그/비효율성/레거시 문법 비평 후 수정.
+   - 기능 검증용 단위 테스트 코드 필수 포함.
+8. **Pre-Deployment Check (배포 전 검증 - 중요!):** - 코드를 푸쉬하거나 배포하기 전에 반드시 **'무결성 검사'**를 수행해야 합니다.
+   - 린트(Lint) 체크, 빌드(Build) 테스트, 전체 테스트 통과 여부를 확인하는 명령어를 제공하세요.
+
+# Goal (목표)
+
+위 원칙에 따라, 특히 **에러를 확실히 잡는 것을 최우선**으로 하여 **[구현 계획]**부터 설명해 주세요.
+
 # 프로젝트 디자인 컨셉
 
 ## GitHub 다크모드 컨셉 준수
@@ -313,7 +337,7 @@ font-family: 'Pretendard', 'Inter', sans-serif;
 
 ### 기본 원칙
 
-- **모든 주석 사용 금지**: 한줄 주석(//) 및 블록 주석(/* */) 사용 금지
+- **모든 주석 사용 금지**: 한줄 주석(//) 및 블록 주석(/\* \*/) 사용 금지
 - **자명한 코드 작성**: 주석 없이도 이해할 수 있는 코드 작성
 - **의미있는 변수명과 함수명**: 설명이 필요 없는 명확한 네이밍
 
@@ -323,11 +347,11 @@ font-family: 'Pretendard', 'Inter', sans-serif;
 // ❌ 금지된 방법 - 주석 사용
 // 사용자 정보를 가져오는 함수
 const getUserInfo = () => {
-  // API 호출
-  return fetch('/api/user');
+	// API 호출
+	return fetch('/api/user');
 };
 
-/* 
+/*
  * 다중 줄 주석도 금지
  */
 const multiLineExample = () => {};
@@ -340,12 +364,12 @@ const multiLineExample = () => {};
 ```typescript
 // ✅ 올바른 방법 - 의미 있는 네이밍으로 주석 대체
 const fetchUserInfo = async () => {
-  return fetch('/api/user');
+	return fetch('/api/user');
 };
 
 const validateEmailFormat = (email: string) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(email);
 };
 ```
 
