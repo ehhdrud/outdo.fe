@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AuthLayout from '@/components/Layout/AuthLayout';
 import DefaultLayout from '@/components/Layout/Layout';
 import NoHeaderLayout from '@/components/Layout/NoHeaderLayout';
+import Callback from '@/pages/Auth/Callback/Callback';
 import FindPassword from '@/pages/Auth/FindPassword/FindPassword';
 import Signin from '@/pages/Auth/Signin/Signin';
 import Signup from '@/pages/Auth/Signup/Signup';
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
 			{ path: '/auth', element: <Signin /> },
 			{ path: '/auth/sign-up', element: <Signup /> },
 			{ path: '/auth/find-pw', element: <FindPassword /> },
+			{ path: '/auth/callback', element: <Callback /> },
 		],
 	},
 ]);

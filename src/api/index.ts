@@ -46,7 +46,8 @@ const requestTokenMem = mem(requestToken, { maxAge: 1000 });
 mainApi.interceptors.request.use(
 	(request) => {
 		const tokenStore = useTokenStore.getState();
-		request.headers.Authorization = tokenStore.isLogin() ? tokenStore.getAccessToken() : null;
+		const token = tokenStore.getAccessToken();
+		request.headers.Authorization = token ? `Bearer ${token}` : null;
 		return request;
 	},
 	(error) => Promise.reject(error)
@@ -57,8 +58,7 @@ mainApi.interceptors.response.use(
 	async (error) => {
 		const toastStore = useToastStore.getState();
 
-		const errorCode = error.response?.data?.extras?.rs_code;
-		if (errorCode === 'DOE3000') {
+		if (error.response?.status === 401) {
 			const tokenStore = useTokenStore.getState();
 			const authStore = useAuthStore.getState();
 
@@ -66,8 +66,8 @@ mainApi.interceptors.response.use(
 				const accessToken = await requestTokenMem(tokenStore.getRefreshToken() ?? '');
 
 				if (accessToken) {
-					error.config.headers.Authorization = accessToken;
-					return authApi(error.config);
+					error.config.headers.Authorization = `Bearer ${accessToken}`;
+					return mainApi(error.config);
 				} else {
 					throw new Error('Token refresh failed');
 				}
@@ -80,7 +80,7 @@ mainApi.interceptors.response.use(
 				});
 				authStore.clearValues();
 				tokenStore.resetToken();
-				window.location.href = '/auth/login';
+				window.location.href = '/auth';
 				return Promise.reject(err);
 			}
 		}
