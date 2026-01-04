@@ -18,8 +18,8 @@ VITE_ACCEPT=application/json
 
 ### Axios 인스턴스
 
-| 인스턴스 | 용도 | 파일 위치 |
-|---------|------|----------|
+| 인스턴스  | 용도                             | 파일 위치          |
+| --------- | -------------------------------- | ------------------ |
 | `mainApi` | 인증된 API 호출 (토큰 자동 첨부) | `src/api/index.ts` |
 | `authApi` | 인증 관련 API (로그인, 회원가입) | `src/api/index.ts` |
 
@@ -67,41 +67,41 @@ VITE_ACCEPT=application/json
 
 ### 3.1 인증 (Auth)
 
-| Method | Endpoint | 인증 | 설명 |
-|--------|----------|:----:|------|
-| POST | `/auth/signup` | X | 회원가입 |
-| POST | `/auth/signin` | X | 로그인 |
-| GET | `/auth/google` | X | Google OAuth 시작 |
-| GET | `/auth/google/callback` | X | Google OAuth 콜백 |
-| POST | `/auth/renewalToken` | X | 토큰 갱신 |
-| POST | `/auth/changePassword` | O | 비밀번호 변경 |
+| Method | Endpoint                | 인증 | 설명              |
+| ------ | ----------------------- | :--: | ----------------- |
+| POST   | `/auth/signup`          |  X   | 회원가입          |
+| POST   | `/auth/signin`          |  X   | 로그인            |
+| GET    | `/auth/google`          |  X   | Google OAuth 시작 |
+| GET    | `/auth/google/callback` |  X   | Google OAuth 콜백 |
+| POST   | `/auth/renewalToken`    |  X   | 토큰 갱신         |
+| POST   | `/auth/changePassword`  |  O   | 비밀번호 변경     |
 
 ### 3.2 사용자 (Users)
 
-| Method | Endpoint | 인증 | 설명 |
-|--------|----------|:----:|------|
-| GET | `/users/profile` | O | 프로필 조회 |
-| PATCH | `/users/profile` | O | 프로필 수정 |
+| Method | Endpoint         | 인증 | 설명        |
+| ------ | ---------------- | :--: | ----------- |
+| GET    | `/users/profile` |  O   | 프로필 조회 |
+| PATCH  | `/users/profile` |  O   | 프로필 수정 |
 
 ### 3.3 루틴 (Routines)
 
-| Method | Endpoint | 인증 | 설명 |
-|--------|----------|:----:|------|
-| POST | `/routines` | O | 루틴 생성 |
-| GET | `/routines` | O | 루틴 목록 조회 |
-| GET | `/routines/:routine_pk/today` | O | 오늘의 루틴 세션 조회 |
-| GET | `/routines/by-date?routine_pk=&date=` | O | 특정 날짜 루틴 조회 |
-| POST | `/routines/:routine_pk/days/today` | O | 오늘의 루틴 저장 |
-| POST | `/routines/:routine_pk/days` | O | 특정 날짜 루틴 저장 |
-| PATCH | `/routines/:routine_pk` | O | 루틴 이름 수정 |
-| DELETE | `/routines/:routine_pk` | O | 루틴 삭제 |
+| Method | Endpoint                              | 인증 | 설명                  |
+| ------ | ------------------------------------- | :--: | --------------------- |
+| POST   | `/routines`                           |  O   | 루틴 생성             |
+| GET    | `/routines`                           |  O   | 루틴 목록 조회        |
+| GET    | `/routines/:routine_pk/today`         |  O   | 오늘의 루틴 세션 조회 |
+| GET    | `/routines/by-date?routine_pk=&date=` |  O   | 특정 날짜 루틴 조회   |
+| POST   | `/routines/:routine_pk/days/today`    |  O   | 오늘의 루틴 저장      |
+| POST   | `/routines/:routine_pk/days`          |  O   | 특정 날짜 루틴 저장   |
+| PATCH  | `/routines/:routine_pk`               |  O   | 루틴 이름 수정        |
+| DELETE | `/routines/:routine_pk`               |  O   | 루틴 삭제             |
 
 ### 3.4 대시보드 (Dashboard)
 
-| Method | Endpoint | 인증 | 설명 |
-|--------|----------|:----:|------|
-| GET | `/dashboard/activities?startDate=&endDate=` | O | 기간별 활동 조회 |
-| GET | `/dashboard/achievements` | O | 최근 성과 조회 |
+| Method | Endpoint                                    | 인증 | 설명             |
+| ------ | ------------------------------------------- | :--: | ---------------- |
+| GET    | `/dashboard/activities?startDate=&endDate=` |  O   | 기간별 활동 조회 |
+| GET    | `/dashboard/achievements`                   |  O   | 최근 성과 조회   |
 
 ---
 
@@ -110,6 +110,7 @@ VITE_ACCEPT=application/json
 ### 4.1 공통 응답 형식
 
 **성공**
+
 ```json
 {
   "success": true,
@@ -118,13 +119,14 @@ VITE_ACCEPT=application/json
 ```
 
 **실패**
+
 ```json
 {
-  "success": false,
-  "message": "에러 메시지",
-  "extras": {
-    "rs_code": "ERROR_CODE"  // 선택적
-  }
+	"success": false,
+	"message": "에러 메시지",
+	"extras": {
+		"rs_code": "ERROR_CODE" // 선택적
+	}
 }
 ```
 
@@ -322,7 +324,7 @@ VITE_ACCEPT=application/json
 ```typescript
 // Query Params
 routine_pk: number;
-date: string;  // YYYY-MM-DD
+date: string; // YYYY-MM-DD
 
 // Response - 동일 형식 (RoutineDay)
 ```
@@ -457,10 +459,10 @@ endDate: string;    // YYYY-MM-DD
 
 ### 5.1 Authorization 헤더 형식 ⚠️
 
-| 구분 | 현재 상태 | 수정 필요 |
-|------|----------|----------|
-| FE | `Authorization: <token>` | `Authorization: Bearer <token>` |
-| BE | `Bearer <token>` 기대 | - |
+| 구분 | 현재 상태                | 수정 필요                       |
+| ---- | ------------------------ | ------------------------------- |
+| FE   | `Authorization: <token>` | `Authorization: Bearer <token>` |
+| BE   | `Bearer <token>` 기대    | -                               |
 
 **수정 위치:** `src/api/index.ts`
 
@@ -475,45 +477,47 @@ config.headers['Authorization'] = token ? `Bearer ${token}` : null;
 
 ### 5.2 토큰 만료 에러 처리 ⚠️
 
-| 구분 | 현재 상태 | 수정 필요 |
-|------|----------|----------|
-| FE | `DOE3000` 코드 체크 | HTTP 401 상태 코드로 변경 |
-| BE | 401 Unauthorized 반환 | - |
+| 구분 | 현재 상태             | 수정 필요                 |
+| ---- | --------------------- | ------------------------- |
+| FE   | `DOE3000` 코드 체크   | HTTP 401 상태 코드로 변경 |
+| BE   | 401 Unauthorized 반환 | -                         |
 
 **수정 위치:** `src/api/index.ts`
 
 ```typescript
 // Before
 if (data.extras?.rs_code === 'DOE3000') {
-  // 토큰 갱신
+	// 토큰 갱신
 }
 
 // After
 if (error.response?.status === 401) {
-  // 토큰 갱신 시도
+	// 토큰 갱신 시도
 }
 ```
 
 ### 5.3 Google OAuth 콜백 페이지 ⚠️
 
-| 구분 | 현재 상태 | 수정 필요 |
-|------|----------|----------|
-| FE | 콜백 페이지 없음 | `/auth/callback` 라우트 추가 |
-| BE | redirect_url이 `/auth/callback`으로 리다이렉트 | - |
+| 구분 | 현재 상태                                      | 수정 필요                    |
+| ---- | ---------------------------------------------- | ---------------------------- |
+| FE   | 콜백 페이지 없음                               | `/auth/callback` 라우트 추가 |
+| BE   | redirect_url이 `/auth/callback`으로 리다이렉트 | -                            |
 
 **추가 필요:**
+
 1. `src/pages/Auth/Callback/Callback.tsx` 페이지 생성
 2. URL 파라미터에서 토큰 추출 및 저장 (`?access_token=...&refresh_token=...`)
 3. 라우터에 `/auth/callback` 추가
 
 ### 5.4 비밀번호 찾기 API 미구현 ⚠️
 
-| 구분 | 현재 상태 | 수정 필요 |
-|------|----------|----------|
-| FE | `FindPassword.tsx` 페이지 존재 | - |
-| BE | 비밀번호 찾기/재설정 API 없음 | API 구현 필요 |
+| 구분 | 현재 상태                      | 수정 필요     |
+| ---- | ------------------------------ | ------------- |
+| FE   | `FindPassword.tsx` 페이지 존재 | -             |
+| BE   | 비밀번호 찾기/재설정 API 없음  | API 구현 필요 |
 
 **BE 추가 필요:**
+
 1. `POST /auth/find-password` - 비밀번호 재설정 이메일 발송
 2. `POST /auth/reset-password` - 새 비밀번호 설정 (토큰 검증)
 
@@ -526,12 +530,12 @@ if (error.response?.status === 401) {
 ```typescript
 // App.tsx
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: true,
-      retry: false,
-    },
-  },
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: true,
+			retry: false,
+		},
+	},
 });
 ```
 
@@ -544,23 +548,22 @@ import { api } from '@/api';
 
 // 프로필 조회
 export const useProfile = () => {
-  return useQuery({
-    queryKey: ['profile'],
-    queryFn: () => api.get('/users/profile'),
-  });
+	return useQuery({
+		queryKey: ['profile'],
+		queryFn: () => api.get('/users/profile'),
+	});
 };
 
 // 프로필 수정
 export const useUpdateProfile = () => {
-  const queryClient = useQueryClient();
+	const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: (data: { name?: string; bio?: string }) =>
-      api.patch('/users/profile', data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
-    },
-  });
+	return useMutation({
+		mutationFn: (data: { name?: string; bio?: string }) => api.patch('/users/profile', data),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['profile'] });
+		},
+	});
 };
 ```
 
@@ -570,21 +573,21 @@ export const useUpdateProfile = () => {
 
 ### 7.1 HTTP 상태 코드
 
-| 코드 | 의미 | 처리 |
-|------|------|------|
-| 400 | Bad Request | 입력값 검증 실패 |
-| 401 | Unauthorized | 토큰 갱신 시도 → 실패시 로그아웃 |
-| 403 | Forbidden | 권한 없음 |
-| 404 | Not Found | 리소스 없음 |
-| 500 | Server Error | 서버 에러 토스트 표시 |
+| 코드 | 의미         | 처리                             |
+| ---- | ------------ | -------------------------------- |
+| 400  | Bad Request  | 입력값 검증 실패                 |
+| 401  | Unauthorized | 토큰 갱신 시도 → 실패시 로그아웃 |
+| 403  | Forbidden    | 권한 없음                        |
+| 404  | Not Found    | 리소스 없음                      |
+| 500  | Server Error | 서버 에러 토스트 표시            |
 
 ### 7.2 네트워크 에러
 
-| 에러 코드 | 의미 | 처리 |
-|----------|------|------|
-| ERR_NETWORK | 네트워크 연결 실패 | "네트워크 연결을 확인해주세요" |
-| ERR_BAD_RESPONSE | 서버 응답 없음 | "서버가 응답하지 않습니다" |
-| ECONNABORTED | 요청 시간 초과 | "요청 시간이 초과되었습니다" |
+| 에러 코드        | 의미               | 처리                           |
+| ---------------- | ------------------ | ------------------------------ |
+| ERR_NETWORK      | 네트워크 연결 실패 | "네트워크 연결을 확인해주세요" |
+| ERR_BAD_RESPONSE | 서버 응답 없음     | "서버가 응답하지 않습니다"     |
+| ECONNABORTED     | 요청 시간 초과     | "요청 시간이 초과되었습니다"   |
 
 ---
 
@@ -595,119 +598,121 @@ export const useUpdateProfile = () => {
 
 // 공통 응답
 interface ApiResponse<T> {
-  success: boolean;
-  data: T;
+	success: boolean;
+	data: T;
 }
 
 interface ApiError {
-  success: false;
-  message: string;
-  extras?: {
-    rs_code?: string;
-  };
+	success: false;
+	message: string;
+	extras?: {
+		rs_code?: string;
+	};
 }
 
 // 인증
 interface AuthTokens {
-  access_token: string;
-  refresh_token: string;
+	access_token: string;
+	refresh_token: string;
 }
 
 // 사용자
 interface User {
-  user_pk: number;
-  email: string;
-  name: string;
-  bio: string | null;
-  google_id: string | null;
+	user_pk: number;
+	email: string;
+	name: string;
+	bio: string | null;
+	google_id: string | null;
 }
 
 // 루틴
 interface RoutineSet {
-  routine_day_set_pk?: number;
-  set_order: number;
-  weight: number | null;
-  reps: number;
+	routine_day_set_pk?: number;
+	set_order: number;
+	weight: number | null;
+	reps: number;
 }
 
 interface RoutineWorkout {
-  routine_day_workout_pk?: number;
-  workout_name: string;
-  order: number;
-  notes: string | null;
-  sets: RoutineSet[];
+	routine_day_workout_pk?: number;
+	workout_name: string;
+	order: number;
+	notes: string | null;
+	sets: RoutineSet[];
 }
 
 interface RoutineDay {
-  routine_day_pk: number;
-  session_date: string;
-  workouts: RoutineWorkout[];
+	routine_day_pk: number;
+	session_date: string;
+	workouts: RoutineWorkout[];
 }
 
 interface Routine {
-  routine_pk: number;
-  routine_name: string;
-  created_at: string;
-  updated_at: string;
-  latest_session?: RoutineDay;
+	routine_pk: number;
+	routine_name: string;
+	created_at: string;
+	updated_at: string;
+	latest_session?: RoutineDay;
 }
 
 // 대시보드
 interface DayActivity {
-  date: string;
-  activity: 0 | 1 | 2;
-  routine_name: string | null;
-  routine_pk: number | null;
-  routine_day_pk: number | null;
-  achievement: number | null;
-  has_max_weight_achieved: boolean;
-  max_weight_records: {
-    workout_name: string;
-    order: number;
-    max_weight: number;
-  }[] | null;
-  is_new_routine: boolean;
+	date: string;
+	activity: 0 | 1 | 2;
+	routine_name: string | null;
+	routine_pk: number | null;
+	routine_day_pk: number | null;
+	achievement: number | null;
+	has_max_weight_achieved: boolean;
+	max_weight_records:
+		| {
+				workout_name: string;
+				order: number;
+				max_weight: number;
+		  }[]
+		| null;
+	is_new_routine: boolean;
 }
 
 interface AchievementDetail {
-  date: string;
-  routine_name: string;
-  routine_pk: number;
-  routine_day_pk: number;
-  achievement: number;
-  workouts: {
-    workout_name: string;
-    order: number;
-    weight_increase: number;
-    previous_max_weight: number;
-    current_max_weight: number;
-  }[];
+	date: string;
+	routine_name: string;
+	routine_pk: number;
+	routine_day_pk: number;
+	achievement: number;
+	workouts: {
+		workout_name: string;
+		order: number;
+		weight_increase: number;
+		previous_max_weight: number;
+		current_max_weight: number;
+	}[];
 }
 
 // Request DTOs
 interface ChangePasswordRequest {
-  current_password: string;
-  new_password: string;
+	current_password: string;
+	new_password: string;
 }
 
 interface CreateRoutineRequest {
-  routine_name: string;
-  workouts: {
-    workout_name: string;
-    order?: number;
-    notes?: string | null;
-    sets: { weight?: number | null; reps: number }[];
-  }[];
+	routine_name: string;
+	workouts: {
+		workout_name: string;
+		order?: number;
+		notes?: string | null;
+		sets: { weight?: number | null; reps: number }[];
+	}[];
 }
 
 interface SaveRoutineDayRequest {
-  session_date?: string;  // 특정 날짜 저장시 필수
-  workouts?: {
-    workout_name: string;
-    order?: number;
-    notes?: string | null;
-    sets: { weight?: number | null; reps: number }[];
-  }[];
+	session_date?: string; // 특정 날짜 저장시 필수
+	workouts?: {
+		workout_name: string;
+		order?: number;
+		notes?: string | null;
+		sets: { weight?: number | null; reps: number }[];
+	}[];
 }
 ```
 
@@ -724,17 +729,17 @@ interface SaveRoutineDayRequest {
 
 ### 페이지별 연동 작업
 
-| FE 페이지 | 라우트 | BE 엔드포인트 | 상태 |
-|----------|--------|--------------|------|
-| 로그인 | `/auth` | `POST /auth/signin` | 연동 필요 |
-| 회원가입 | `/auth/sign-up` | `POST /auth/signup` | 연동 필요 |
-| Google OAuth 콜백 | `/auth/callback` | `GET /auth/google/callback` | ⚠️ FE 페이지 생성 필요 |
-| 비밀번호 찾기 | `/auth/find-pw` | - | ⚠️ BE API 미구현 |
-| 대시보드 | `/` | `GET /dashboard/activities`, `GET /dashboard/achievements` | 연동 필요 |
-| 루틴 목록 | `/routines` | `GET /routines` | 연동 필요 |
-| 루틴 상세 | `/routines/:id` | `GET /routines/:id/today`, `POST /routines/:id/days/today` | 연동 필요 |
-| 프로필 | `/profile` | `GET /users/profile`, `PATCH /users/profile` | 연동 필요 |
-| 비밀번호 변경 | `/profile/change-password` | `POST /auth/changePassword` | 연동 필요 |
+| FE 페이지         | 라우트                     | BE 엔드포인트                                              | 상태                   |
+| ----------------- | -------------------------- | ---------------------------------------------------------- | ---------------------- |
+| 로그인            | `/auth`                    | `POST /auth/signin`                                        | 연동 필요              |
+| 회원가입          | `/auth/sign-up`            | `POST /auth/signup`                                        | 연동 필요              |
+| Google OAuth 콜백 | `/auth/callback`           | `GET /auth/google/callback`                                | ⚠️ FE 페이지 생성 필요 |
+| 비밀번호 찾기     | `/auth/find-pw`            | -                                                          | ⚠️ BE API 미구현       |
+| 대시보드          | `/`                        | `GET /dashboard/activities`, `GET /dashboard/achievements` | 연동 필요              |
+| 루틴 목록         | `/routines`                | `GET /routines`                                            | 연동 필요              |
+| 루틴 상세         | `/routines/:id`            | `GET /routines/:id/today`, `POST /routines/:id/days/today` | 연동 필요              |
+| 프로필            | `/profile`                 | `GET /users/profile`, `PATCH /users/profile`               | 연동 필요              |
+| 비밀번호 변경     | `/profile/change-password` | `POST /auth/changePassword`                                | 연동 필요              |
 
 ### 연동 체크리스트
 
