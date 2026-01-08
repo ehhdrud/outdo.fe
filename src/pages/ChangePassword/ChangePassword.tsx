@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { authService } from '@/api/auth';
 import FormButton from '@/components/common/Form/FormButton/FormButton';
 import FormInput from '@/components/common/Form/FormInput/FormInput';
+import { useToastStore } from '@/store/toastStore';
 
 import * as S from './ChangePassword.style';
 
 const ChangePassword = () => {
 	const navigate = useNavigate();
+	const { openToast } = useToastStore();
 	const [formData, setFormData] = useState({
 		currentPassword: '',
 		newPassword: '',
@@ -48,8 +51,8 @@ const ChangePassword = () => {
 
 		if (!formData.newPassword) {
 			newErrors.newPassword = 'New password is required';
-		} else if (formData.newPassword.length < 8) {
-			newErrors.newPassword = 'Password must be at least 8 characters';
+		} else if (formData.newPassword.length < 6) {
+			newErrors.newPassword = 'Password must be at least 6 characters';
 		}
 
 		if (!formData.confirmPassword) {
@@ -69,15 +72,31 @@ const ChangePassword = () => {
 
 		setIsLoading(true);
 		try {
-			await new Promise((resolve) => setTimeout(resolve, 2000));
-			console.log('Password changed successfully:', formData);
-			navigate('/profile');
+			const response = await authService.changePassword({
+				current_password: formData.currentPassword,
+				new_password: formData.newPassword,
+			});
+
+			if (response.data.success) {
+				openToast({
+					icon: 'check',
+					content: 'Password changed successfully',
+					showTime: 2000,
+				});
+				navigate('/profile');
+			}
 		} catch (error) {
 			console.error('Password change failed:', error);
 			setErrors((prev) => ({
 				...prev,
 				currentPassword: 'Current password is incorrect',
 			}));
+			openToast({
+				icon: 'alert',
+				content: 'Failed to change password',
+				subContent: 'Please check your current password',
+				showTime: 3000,
+			});
 		} finally {
 			setIsLoading(false);
 		}
@@ -109,7 +128,7 @@ const ChangePassword = () => {
 					name="newPassword"
 					value={formData.newPassword}
 					onChange={handleInputChange}
-					placeholder="At least 8 characters"
+					placeholder="At least 6 characters"
 					error={errors.newPassword}
 					required
 				/>

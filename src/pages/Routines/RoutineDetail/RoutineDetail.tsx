@@ -1,42 +1,167 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { routineService } from '@/api/routine';
 import FormButton from '@/components/common/Form/FormButton/FormButton.tsx';
 import NoteModal from '@/components/NoteModal/NoteModal';
-import { mockRoutineDetailData, RoutineDetailData, RoutineWorkoutDetail } from '@/data/mockRoutineDetailData';
+import { useToastStore } from '@/store/toastStore';
 
 import * as S from './RoutineDetail.style.ts';
 
+interface WorkoutSet {
+	set_pk: number;
+	weight: number;
+	reps: number;
+}
+
+interface RoutineWorkoutDetail {
+	workout_pk: number;
+	workout_name: string;
+	sets: WorkoutSet[];
+	order: number;
+	notes?: string;
+}
+
+interface RoutineDetailData {
+	routine_pk: number;
+	routine_name: string;
+	workouts: RoutineWorkoutDetail[];
+}
+
 const RoutineDetail = () => {
 	const { id } = useParams<{ id: string }>();
+	const navigate = useNavigate();
+	const { openToast } = useToastStore();
+	const [isLoading, setIsLoading] = useState(true);
+	const [isSaving, setIsSaving] = useState(false);
 
-	// Create initial data based on route
-	const getInitialData = (): RoutineDetailData => {
-		if (id === 'new') {
-			return {
-				routine_pk: Date.now(),
-				routine_name: 'new workout',
-				workouts: [
-					{
-						workout_pk: Date.now(),
-						workout_name: 'New Workout',
-						order: 0,
-						sets: [{ set_pk: Date.now(), weight: 0, reps: 0 }],
-					},
-				],
-			};
-		}
-		return mockRoutineDetailData;
-	};
+	const getInitialData = (): RoutineDetailData => ({
+		routine_pk: 0,
+		routine_name: 'new workout',
+		workouts: [
+			{
+				workout_pk: Date.now(),
+				workout_name: 'New Workout',
+				order: 0,
+				sets: [{ set_pk: Date.now(), weight: 0, reps: 0 }],
+			},
+		],
+	});
 
 	const [routineDetailData, setRoutineDetailData] = useState<RoutineDetailData>(getInitialData());
+	const [openMenuWorkoutId, setOpenMenuWorkoutId] = useState<number | null>(null);
+	const [noteModalOpen, setNoteModalOpen] = useState(false);
+	const [selectedWorkoutId, setSelectedWorkoutId] = useState<number | null>(null);
 
-	// 새로운 운동 추가 함수
+	useEffect(() => {
+		const fetchRoutineDetail = async () => {
+			if (id === 'new') {
+				setIsLoading(false);
+				return;
+			}
+
+			setIsLoading(true);
+			try {
+				const response = await routineService.getTodaySession(Number(id));
+				if (response.data.success) {
+					const routineDay = response.data.data;
+					setRoutineDetailData({
+						routine_pk: Number(id),
+						routine_name: routineDay.workouts[0]?.workout_name ? `Routine ${id}` : 'Routine',
+						workouts: routineDay.workouts.map((w, index) => ({
+							workout_pk: w.routine_day_workout_pk || Date.now() + index,
+							workout_name: w.workout_name,
+							order: w.order,
+							notes: w.notes || undefined,
+							sets: w.sets.map((s, sIndex) => ({
+								set_pk: s.routine_day_set_pk || Date.now() + sIndex,
+								weight: s.weight || 0,
+								reps: s.reps,
+							})),
+						})),
+					});
+				}
+			} catch (error) {
+				console.error('Failed to fetch routine detail:', error);
+				setRoutineDetailData({
+					routine_pk: Number(id),
+					routine_name: 'New Routine',
+					workouts: [
+						{
+							workout_pk: Date.now(),
+							workout_name: 'New Workout',
+							order: 0,
+							sets: [{ set_pk: Date.now(), weight: 0, reps: 0 }],
+						},
+					],
+				});
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		fetchRoutineDetail();
+	}, [id]);
+
+	const handleSave = async () => {
+		setIsSaving(true);
+		try {
+			const workoutsData = routineDetailData.workouts.map((w) => ({
+				workout_name: w.workout_name,
+				order: w.order,
+				notes: w.notes || null,
+				sets: w.sets.map((s) => ({
+					weight: s.weight || null,
+					reps: s.reps,
+				})),
+			}));
+
+			if (id === 'new') {
+				const response = await routineService.createRoutine({
+					routine_name: routineDetailData.routine_name,
+					workouts: workoutsData,
+				});
+				if (response.data.success) {
+					openToast({
+						icon: 'check',
+						content: 'Routine created successfully',
+						showTime: 2000,
+					});
+					navigate('/routines');
+				}
+			} else {
+				const response = await routineService.saveTodaySession(Number(id), {
+					workouts: workoutsData,
+				});
+				if (response.data.success) {
+					openToast({
+						icon: 'check',
+						content: 'Routine saved successfully',
+						showTime: 2000,
+					});
+				}
+			}
+		} catch (error) {
+			console.error('Failed to save routine:', error);
+			openToast({
+				icon: 'alert',
+				content: 'Failed to save routine',
+				showTime: 3000,
+			});
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
+	const handleCancel = () => {
+		navigate('/routines');
+	};
+
 	const handleAddWorkout = () => {
 		const newWorkout: RoutineWorkoutDetail = {
-			workout_pk: Date.now(), // 고유 ID 생성
+			workout_pk: Date.now(),
 			workout_name: 'New Workout',
-			order: routineDetailData.workouts.length, // 마지막 순서로 추가
+			order: routineDetailData.workouts.length,
 			sets: [{ set_pk: Date.now(), weight: 0, reps: 0 }],
 		};
 
@@ -45,31 +170,23 @@ const RoutineDetail = () => {
 			workouts: [...prev.workouts, newWorkout],
 		}));
 	};
-	// Workout 삭제 함수
+
 	const handleDeleteWorkout = (workoutId: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
 			workouts: prev.workouts.filter((workout) => workout.workout_pk !== workoutId),
 		}));
-		setOpenMenuWorkoutId(null); // 더보기 메뉴 닫기
+		setOpenMenuWorkoutId(null);
 	};
 
-	// 더보기 메뉴 상태
-	const [openMenuWorkoutId, setOpenMenuWorkoutId] = useState<number | null>(null);
 	const toggleMoreMenu = (workoutId: number) => {
 		setOpenMenuWorkoutId((prev) => (prev === workoutId ? null : workoutId));
 	};
 
-	// 메모 모달 상태
-	const [noteModalOpen, setNoteModalOpen] = useState(false);
-	const [selectedWorkoutId, setSelectedWorkoutId] = useState<number | null>(null);
-
-	// 외부 클릭 시 메뉴 닫기
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (openMenuWorkoutId) {
 				const target = event.target as HTMLElement;
-				// 메뉴 내부 클릭은 무시
 				if (!target.closest('[data-more-menu]')) {
 					setOpenMenuWorkoutId(null);
 				}
@@ -85,7 +202,6 @@ const RoutineDetail = () => {
 		};
 	}, [openMenuWorkoutId]);
 
-	// 운동 이름 수정 함수
 	const handleUpdateWorkoutName = (workoutId: number, newName: string) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
@@ -93,7 +209,6 @@ const RoutineDetail = () => {
 		}));
 	};
 
-	// 세트 무게 수정 함수
 	const handleUpdateSetWeight = (workoutId: number, setId: number, newWeight: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
@@ -108,7 +223,6 @@ const RoutineDetail = () => {
 		}));
 	};
 
-	// 세트 반복 횟수 수정 함수
 	const handleUpdateSetReps = (workoutId: number, setId: number, newReps: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
@@ -123,7 +237,6 @@ const RoutineDetail = () => {
 		}));
 	};
 
-	// 세트 추가 함수
 	const handleAddSet = (workoutId: number) => {
 		setRoutineDetailData((prev) => ({
 			...prev,
@@ -138,14 +251,12 @@ const RoutineDetail = () => {
 		}));
 	};
 
-	// 메모 모달 열기 함수
 	const handleOpenNoteModal = (workoutId: number) => {
 		setSelectedWorkoutId(workoutId);
 		setNoteModalOpen(true);
-		setOpenMenuWorkoutId(null); // 더보기 메뉴 닫기
+		setOpenMenuWorkoutId(null);
 	};
 
-	// 메모 저장 함수
 	const handleSaveNote = (note: string) => {
 		if (selectedWorkoutId) {
 			setRoutineDetailData((prev) => ({
@@ -155,12 +266,20 @@ const RoutineDetail = () => {
 		}
 	};
 
+	if (isLoading) {
+		return (
+			<S.RoutineDetailWrapper>
+				<S.LoadingText>Loading routine...</S.LoadingText>
+			</S.RoutineDetailWrapper>
+		);
+	}
+
 	return (
 		<S.RoutineDetailWrapper>
 			<S.InfoSection>
 				<S.InfoHeader>
 					<S.RoutineTitle>{routineDetailData.routine_name}</S.RoutineTitle>
-					<FormButton size="small" type="button">
+					<FormButton size="small" type="button" onClick={handleSave} disabled={isSaving} loading={isSaving ? 'Saving...' : false}>
 						Save
 					</FormButton>
 				</S.InfoHeader>
@@ -239,7 +358,7 @@ const RoutineDetail = () => {
 				<FormButton size="small" type="button" fullWidth onClick={handleAddWorkout}>
 					Add workout
 				</FormButton>
-				<FormButton size="small" variant="secondary" type="button" fullWidth>
+				<FormButton size="small" variant="secondary" type="button" fullWidth onClick={handleCancel}>
 					Cancel routine
 				</FormButton>
 			</S.ButtonWrapper>

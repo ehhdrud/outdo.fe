@@ -1,18 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { authService } from '@/api/auth';
 import logoSvg from '@/assets/logo.svg';
 import FormButton from '@/components/common/Form/FormButton/FormButton';
 import FormInput from '@/components/common/Form/FormInput/FormInput';
+import { useToastStore } from '@/store/toastStore';
+import { useTokenStore } from '@/store/tokenStore';
 
 import * as S from './Signin.style';
 
 const Signin = () => {
 	const navigate = useNavigate();
+	const { setAccessToken, setRefreshToken } = useTokenStore();
+	const { openToast } = useToastStore();
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	});
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState('');
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -20,15 +27,45 @@ const Signin = () => {
 			...prev,
 			[name]: value,
 		}));
+		if (error) setError('');
 	};
 
-	const handleEmailSignin = (e: React.FormEvent) => {
+	const handleEmailSignin = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log('Email signin:', formData);
+		setIsLoading(true);
+		setError('');
+
+		try {
+			const response = await authService.signin({
+				email: formData.email,
+				password: formData.password,
+			});
+
+			if (response.data.success) {
+				setAccessToken(response.data.data.access_token);
+				setRefreshToken(response.data.data.refresh_token);
+				openToast({
+					icon: 'check',
+					content: 'Login successful',
+					showTime: 2000,
+				});
+				navigate('/');
+			}
+		} catch (err) {
+			setError('Invalid email or password');
+			openToast({
+				icon: 'alert',
+				content: 'Login failed',
+				subContent: 'Please check your email and password',
+				showTime: 3000,
+			});
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	const handleGoogleSignin = () => {
-		console.log('Google signin clicked');
+		window.location.href = authService.getGoogleAuthUrl();
 	};
 
 	return (
@@ -55,11 +92,12 @@ const Signin = () => {
 					value={formData.password}
 					onChange={handleInputChange}
 					placeholder="Enter your password"
+					error={error}
 					required
 				/>
 
 				<S.ButtonWrapper>
-					<FormButton type="submit" fullWidth>
+					<FormButton type="submit" fullWidth disabled={isLoading} loading={isLoading ? 'Signing in...' : false}>
 						Sign in
 					</FormButton>
 				</S.ButtonWrapper>

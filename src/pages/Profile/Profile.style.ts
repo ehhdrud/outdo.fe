@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { colors } from '@/styles/color';
+
 export const ProfileWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -50,4 +52,11 @@ export const ChangePasswordButton = styled.button`
 		outline: none;
 		color: #1c6cd9;
 	}
+`;
+
+export const LoadingText = styled.p`
+	font-size: 14px;
+	color: ${colors.text.muted};
+	text-align: center;
+	padding: 48px 0;
 `;

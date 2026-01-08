@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { colors } from '@/styles/color';
+
 export const RoutinesWrapper = styled.div`
 	width: 100%;
 	display: flex;
@@ -169,4 +171,18 @@ export const AddRoutineButton = styled.div`
 			0 8px 25px rgba(26, 31, 46, 0.4),
 			0 0 0 3px rgba(47, 129, 247, 0.3);
 	}
+`;
+
+export const LoadingText = styled.p`
+	font-size: 14px;
+	color: ${colors.text.muted};
+	text-align: center;
+	padding: 24px 0;
+`;
+
+export const EmptyText = styled.p`
+	font-size: 14px;
+	color: ${colors.text.muted};
+	text-align: center;
+	padding: 24px 0;
 `;

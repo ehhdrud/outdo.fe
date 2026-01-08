@@ -69,3 +69,10 @@ export const AchievementText = styled.span`
 	min-width: 60px;
 	text-align: right;
 `;
+
+export const EmptyText = styled.span`
+	font-size: 14px;
+	color: ${colors.text.muted};
+	text-align: center;
+	padding: 24px 0;
+`;

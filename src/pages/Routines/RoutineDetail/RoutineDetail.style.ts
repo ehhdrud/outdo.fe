@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { colors } from '@/styles/color';
+
 export const RoutineDetailWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -174,4 +176,11 @@ export const ButtonWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+`;
+
+export const LoadingText = styled.p`
+	font-size: 14px;
+	color: ${colors.text.muted};
+	text-align: center;
+	padding: 48px 0;
 `;

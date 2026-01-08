@@ -1,38 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { authService } from '@/api/auth';
 import logoSvg from '@/assets/logo.svg';
 import FormButton from '@/components/common/Form/FormButton/FormButton';
 import FormInput from '@/components/common/Form/FormInput/FormInput';
-import FormInputWithButton from '@/components/common/Form/FormInputWithButton/FormInputWithButton';
+import { useToastStore } from '@/store/toastStore';
+import { useTokenStore } from '@/store/tokenStore';
 
 import * as S from './Signup.style';
 
 const Signup = () => {
 	const navigate = useNavigate();
+	const { setAccessToken, setRefreshToken } = useTokenStore();
+	const { openToast } = useToastStore();
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
 		password: '',
 		confirmPassword: '',
-		verificationCode: '',
 	});
 	const [emailError, setEmailError] = useState('');
 	const [passwordError, setPasswordError] = useState('');
-	const [verificationError, setVerificationError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [isEmailSent, setIsEmailSent] = useState(false);
-	const [isEmailVerified, setIsEmailVerified] = useState(false);
-	const [resendTimer, setResendTimer] = useState(0);
-
-	useEffect(() => {
-		if (resendTimer > 0) {
-			const timer = setTimeout(() => {
-				setResendTimer(resendTimer - 1);
-			}, 1000);
-			return () => clearTimeout(timer);
-		}
-	}, [resendTimer]);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -47,58 +37,6 @@ const Signup = () => {
 		if ((name === 'password' || name === 'confirmPassword') && passwordError) {
 			setPasswordError('');
 		}
-		if (name === 'verificationCode' && verificationError) {
-			setVerificationError('');
-		}
-	};
-
-	const handleSendVerificationCode = async () => {
-		if (!formData.email) return;
-
-		setIsLoading(true);
-		setEmailError('');
-
-		try {
-			await new Promise((resolve) => setTimeout(resolve, 1000));
-
-			if (formData.email === 'test@example.com') {
-				setEmailError('You are already an OUTDO member!');
-				return;
-			}
-
-			setIsEmailSent(true);
-			setResendTimer(60);
-			console.log('Verification code sent to:', formData.email);
-		} catch (error) {
-			setEmailError('Failed to send verification code. Please try again.');
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
-	const handleVerifyCode = async () => {
-		if (!formData.verificationCode || formData.verificationCode.length !== 6) {
-			setVerificationError('Please enter a 6-digit verification code');
-			return;
-		}
-
-		setIsLoading(true);
-		setVerificationError('');
-
-		try {
-			await new Promise((resolve) => setTimeout(resolve, 500));
-
-			if (formData.verificationCode === '123456') {
-				setIsEmailVerified(true);
-				console.log('Email verified successfully');
-			} else {
-				setVerificationError('Invalid verification code');
-			}
-		} catch (error) {
-			setVerificationError('Verification failed. Please try again.');
-		} finally {
-			setIsLoading(false);
-		}
 	};
 
 	const handlePasswordBlur = () => {
@@ -111,30 +49,54 @@ const Signup = () => {
 		}
 	};
 
-	const handleEmailSignup = (e: React.FormEvent) => {
+	const handleEmailSignup = async (e: React.FormEvent) => {
 		e.preventDefault();
-		if (emailError || passwordError || verificationError) return;
-
-		if (!isEmailVerified) {
-			setVerificationError('Please complete email verification');
-			return;
-		}
+		if (emailError || passwordError) return;
 
 		if (formData.password !== formData.confirmPassword) {
 			setPasswordError('Passwords do not match');
 			return;
 		}
 
-		if (formData.password.length < 8) {
-			setPasswordError('Password must be at least 8 characters');
+		if (formData.password.length < 6) {
+			setPasswordError('Password must be at least 6 characters');
 			return;
 		}
 
-		console.log('Email signup:', formData);
+		setIsLoading(true);
+
+		try {
+			const response = await authService.signup({
+				email: formData.email,
+				password: formData.password,
+				name: formData.name,
+			});
+
+			if (response.data.success) {
+				setAccessToken(response.data.data.access_token);
+				setRefreshToken(response.data.data.refresh_token);
+				openToast({
+					icon: 'check',
+					content: 'Account created successfully',
+					showTime: 2000,
+				});
+				navigate('/');
+			}
+		} catch (err) {
+			setEmailError('Email already exists or signup failed');
+			openToast({
+				icon: 'alert',
+				content: 'Signup failed',
+				subContent: 'Please try again',
+				showTime: 3000,
+			});
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	const handleGoogleSignup = () => {
-		console.log('Google signup clicked');
+		window.location.href = authService.getGoogleAuthUrl();
 	};
 
 	return (
@@ -144,7 +106,7 @@ const Signup = () => {
 			<S.SignupForm onSubmit={handleEmailSignup}>
 				<FormInput label="Name" type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter your name" required />
 
-				<FormInputWithButton
+				<FormInput
 					label="Email address"
 					type="email"
 					id="email"
@@ -152,34 +114,9 @@ const Signup = () => {
 					value={formData.email}
 					onChange={handleInputChange}
 					placeholder="Enter your email"
-					error={emailError ? `${emailError} Sign in` : undefined}
-					loading={isLoading ? 'Sending verification code...' : false}
-					buttonText={isEmailVerified ? 'Verified' : resendTimer > 0 ? `${resendTimer}s` : 'Send'}
-					onButtonClick={handleSendVerificationCode}
-					buttonDisabled={!formData.email || isLoading || isEmailVerified || resendTimer > 0}
-					disabled={isEmailVerified}
+					error={emailError}
 					required
 				/>
-
-				{isEmailSent && !isEmailVerified && (
-					<FormInputWithButton
-						label="Verification code"
-						type="text"
-						id="verificationCode"
-						name="verificationCode"
-						value={formData.verificationCode}
-						onChange={handleInputChange}
-						placeholder="Enter 6-digit code"
-						error={verificationError}
-						buttonText="Verify"
-						onButtonClick={handleVerifyCode}
-						buttonDisabled={!formData.verificationCode || formData.verificationCode.length !== 6 || isLoading}
-						maxLength={6}
-						required
-					/>
-				)}
-
-				{isEmailVerified && <S.SuccessMessage>✅ Email verification completed</S.SuccessMessage>}
 
 				<FormInput
 					label="Password"
@@ -189,7 +126,7 @@ const Signup = () => {
 					value={formData.password}
 					onChange={handleInputChange}
 					onBlur={handlePasswordBlur}
-					placeholder="At least 8 characters"
+					placeholder="At least 6 characters"
 					error={passwordError}
 					required
 				/>
@@ -208,7 +145,7 @@ const Signup = () => {
 				/>
 
 				<S.ButtonWrapper>
-					<FormButton type="submit" disabled={!!emailError || !!passwordError || !!verificationError || !isEmailVerified || isLoading} fullWidth>
+					<FormButton type="submit" disabled={!!emailError || !!passwordError || isLoading} fullWidth loading={isLoading ? 'Creating account...' : false}>
 						Create account
 					</FormButton>
 				</S.ButtonWrapper>
